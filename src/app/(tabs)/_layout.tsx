@@ -10,6 +10,7 @@ export default function TabLayoout() {
         sceneStyle: { backgroundColor: "#000000" },
         headerStyle: {
           backgroundColor: "#000000",
+          position: "absolute",
         },
         headerTintColor: "#E50914",
         headerTitleStyle: {

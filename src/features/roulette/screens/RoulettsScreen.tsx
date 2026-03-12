@@ -1,31 +1,56 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
-import Spacer from "@/components/Spacer";
-import ShuffleButton from "@/components/ShuffleButton";
-import { fetchRandomMovie } from "@/utils/api";
+import Spacer from "@/components/ui/Spacer";
+import ShuffleButton from "@/features/roulette/components/ShuffleButton";
+import { fetchRandomMovie } from "@/features/roulette/api/fetchRandomMovie";
 import { Movie } from "@/types/movietype";
-import TabBarIcon from "@/components/TabBarIcon";
-import { ScrollView } from "react-native";
-import MovieCard from "@/components/MovieCard";
+import MovieCard from "@/features/roulette/components/MovieCard";
+import { fetchWatchProviders } from "@/features/roulette/api/fetchWatchProviders";
+import { CountryWatchProviders } from "@/types/watchProvider";
 
-export default function Home() {
+export default function RouletteScreen() {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(false);
+  const [watchProvider, setWatchProvider] =
+    useState<CountryWatchProviders | null>(null);
 
   const handleShuffle = async () => {
     setLoading(true);
-    const result = await fetchRandomMovie();
-    setMovie(result);
-    setLoading(false);
+
+    try {
+      // Hömta random film
+      const result = await fetchRandomMovie();
+      setMovie(result);
+
+      if (result && result.id) {
+        const providers = await fetchWatchProviders(result.id);
+        setWatchProvider(providers);
+      }
+    } catch (error) {
+      console.error("Något gick fel vid slumpningen:", error);
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { justifyContent: movie ? "flex-start" : "center" },
+        { padding: movie ? 0 : 24 },
+      ]}
+    >
       {movie ? (
         <>
-          <MovieCard movie={movie} />
+          <Spacer height={10} />
+          <MovieCard
+            movie={movie}
+            watchProvider={watchProvider}
+            setMovie={setMovie}
+          />
           {/* Shuffle button*/}
-          <Spacer height={40} />
-          <ShuffleButton onPress={handleShuffle} loading={loading} />
+          <Spacer height={30} />
         </>
       ) : (
         <>
@@ -48,8 +73,8 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     flex: 1,
-    padding: 24,
     justifyContent: "flex-start",
     alignItems: "center",
   },
@@ -70,13 +95,5 @@ const styles = StyleSheet.create({
     color: "#AAAAAA",
     fontSize: 16,
     textAlign: "center",
-  },
-  movieTitle: {
-    color: "#ffffff",
-    fontSize: 24,
-    textAlign: "center",
-  },
-  overview: {
-    maxHeight: 150,
   },
 });

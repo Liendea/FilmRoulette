@@ -1,12 +1,8 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import TabBarIcon from "./TabBarIcon";
+import TabBarIcon from "./ui/Icon";
 
-export default function CustomTabBar({
-  state,
-  navigation,
-  descriptors,
-}: BottomTabBarProps) {
+export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const currentRoute = state.routes[state.index].name;
   return (
     <View style={styles.container}>
@@ -56,16 +52,14 @@ export default function CustomTabBar({
   );
 }
 
-// Aktiv icon color: "#E50914",
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
     height: 65,
     position: "absolute",
-    bottom: 25,
-    paddingHorizontal: 22,
+    bottom: 10,
+    paddingHorizontal: 20,
     width: "100%",
     gap: 30,
   },
@@ -75,7 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#121212",
+    backgroundColor: "#5a5959be",
     borderRadius: 50,
     paddingHorizontal: 30,
   },
@@ -84,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: 60,
-    backgroundColor: "#121212",
+    backgroundColor: "#5a5959be",
     borderRadius: 50,
     width: "45%",
   },
