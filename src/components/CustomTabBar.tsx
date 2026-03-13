@@ -66,9 +66,9 @@ const styles = StyleSheet.create({
     height: 65,
     position: "absolute",
     bottom: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
     width: "100%",
-    gap: 30,
+    gap: 25,
   },
   leftPill: {
     width: "45%",
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#5a5959be",
     borderRadius: 50,
-    paddingHorizontal: 30,
+    paddingHorizontal: 25,
   },
   rightPill: {
     flexDirection: "row",
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: "#5a5959be",
     borderRadius: 50,
-    width: "45%",
+    width: "40%",
   },
   text: {
     marginLeft: 5,

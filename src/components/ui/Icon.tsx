@@ -5,7 +5,7 @@ type IconProps = {
   width?: number;
   height?: number;
 };
-export default function Icon({ icon, width = 30, height = 30 }: IconProps) {
+export default function Icon({ icon, width = 35, height = 35 }: IconProps) {
   return (
     <>
       <Image style={{ width: width, height: height }} source={icon} />
