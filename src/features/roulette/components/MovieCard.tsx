@@ -15,6 +15,7 @@ import { CountryWatchProviders } from "@/types/watchProvider";
 import AddToWatchListButton from "./AddToWatchListButton";
 import ExitButton from "@/components/ui/ExitButton";
 import { watchlistService } from "@/features/watchlist/api/watchlistService";
+import Toast from "react-native-toast-message";
 
 type MovieCardProps = {
   movie: Movie;
@@ -22,19 +23,29 @@ type MovieCardProps = {
   setMovie: (movie: Movie | null) => void;
 };
 
-async function handleAddToWatchList(movie: Movie) {
-  const success = await watchlistService.addToWatchlist(movie);
-  if (success) {
-    alert("Tillagd i din watchlist");
-  } else {
-    alert("Filmen finns redan i din watchlist");
-  }
-}
 export default function MovieCard({
   movie,
   watchProvider,
   setMovie,
 }: MovieCardProps) {
+  async function handleAddToWatchList(movie: Movie) {
+    const success = await watchlistService.addToWatchlist(movie);
+    if (success) {
+      Toast.show({
+        type: "success",
+        text1: "Woho!",
+        text2: "Filmen är nu tillagd till din lista!",
+        topOffset: 50,
+      });
+    } else {
+      Toast.show({
+        type: "info",
+        text1: "Filmen finns redan i din lista",
+        topOffset: 50,
+      });
+    }
+  }
+
   const releaseYear = movie.release_date
     ? movie.release_date.split("-")[0]
     : "Okänt år";
@@ -44,11 +55,6 @@ export default function MovieCard({
   }
   return (
     <>
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-      />
       {/* Poster */}
       <View style={styles.posterContainer}>
         <Image
@@ -57,10 +63,10 @@ export default function MovieCard({
           }}
           style={styles.poster}
         />
-      </View>
-      {/* Exit button */}
-      <View style={styles.exitButton}>
-        <ExitButton onPress={onExitPress} />
+        {/* Själva handtaget */}
+        <View style={styles.handleContainer}>
+          <View style={styles.handle} />
+        </View>
       </View>
 
       {/* Betyg  och add wo watchlist knapp */}
@@ -110,9 +116,25 @@ export default function MovieCard({
 const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
+  handleContainer: {
+    backgroundColor: "transparent",
+    position: "absolute",
+    top: 10,
+    zIndex: 100,
+    width: "100%",
+    alignItems: "center",
+  },
+  handle: {
+    width: 80,
+    height: 5,
+    backgroundColor: "#ffffff91", // En mörkgrå färg som syns lagom mycket
+    borderRadius: 10,
+  },
+
   posterContainer: {
     width: width,
     height: height * 0.45,
+    backgroundColor: "#000",
   },
   poster: {
     position: "absolute",
@@ -133,12 +155,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 16,
   },
   titleWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
     width: "100%",
+    paddingHorizontal: 16,
   },
   movieTitle: {
     color: "#ffffff",
@@ -151,6 +175,7 @@ const styles = StyleSheet.create({
   },
   overview: {
     maxHeight: 110,
+    paddingHorizontal: 16,
   },
   addButton: {},
 });
