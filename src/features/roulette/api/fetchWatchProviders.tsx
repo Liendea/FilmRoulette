@@ -1,5 +1,5 @@
-import { WatchProviderResponse } from "@/src/types/watchProvider";
-import { CountryWatchProviders } from "@/src/types/watchProvider";
+import { WatchProviderResponse } from "@/types/watchProvider";
+import { CountryWatchProviders } from "@/types/watchProvider";
 
 export async function fetchWatchProviders(
   movieId: number,

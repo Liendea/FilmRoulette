@@ -14,6 +14,7 @@ import WatchProviderList from "./WatchProviderList";
 import { CountryWatchProviders } from "@/types/watchProvider";
 import AddToWatchListButton from "../../../components/AddToWatchListButton";
 import ExitButton from "@/components/ui/ExitButton";
+import { watchlistService } from "@/features/watchlist/api/watchlistService";
 
 type MovieCardProps = {
   movie: Movie;
@@ -21,6 +22,14 @@ type MovieCardProps = {
   setMovie: (movie: Movie | null) => void;
 };
 
+async function handleAddToWatchList(movie: Movie) {
+  const success = await watchlistService.addToWatchlist(movie);
+  if (success) {
+    alert("Tillagd i din watchlist");
+  } else {
+    alert("Filmen finns redan i din watchlist");
+  }
+}
 export default function MovieCard({
   movie,
   watchProvider,
@@ -76,7 +85,7 @@ export default function MovieCard({
           </Text>
         </View>
         <View style={styles.addButton}>
-          <AddToWatchListButton onPress={() => {}} />
+          <AddToWatchListButton onPress={() => handleAddToWatchList(movie)} />
         </View>
       </View>
 
