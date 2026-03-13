@@ -19,7 +19,7 @@ export default function TabLayoout() {
     >
       <Tabs.Screen name="index" options={{ title: "FILM ROULETTE" }} />
       <Tabs.Screen name="search" />
-      <Tabs.Screen name="watchlist" />
+      <Tabs.Screen name="watchlist" options={{ title: "WATCH LIST" }} />
     </Tabs>
   );
 }

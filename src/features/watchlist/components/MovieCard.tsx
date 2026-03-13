@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
   },
   scrollOverView: {
     maxHeight: 100,
+    paddingBottom: 50,
   },
   gradeWrapper: {
     flexDirection: "row",

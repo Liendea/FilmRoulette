@@ -1,4 +1,3 @@
-import { Text } from "react-native";
 import WatchlistScreen from "@/features/watchlist/screens/WatchList";
 
 export default function WatchList() {

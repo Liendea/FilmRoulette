@@ -1,14 +1,17 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import TabBarIcon from "./ui/Icon";
+import Icon from "./ui/Icon";
 
 export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const currentRoute = state.routes[state.index].name;
   return (
     <View style={styles.container}>
       <View style={styles.leftPill}>
-        <Pressable onPress={() => navigation.navigate("index")}>
-          <TabBarIcon
+        <Pressable
+          onPress={() => navigation.navigate("index")}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        >
+          <Icon
             icon={
               currentRoute === "index"
                 ? require("@/assets/icons/film_red.png")
@@ -16,8 +19,11 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
             }
           />
         </Pressable>
-        <Pressable onPress={() => navigation.navigate("watchlist")}>
-          <TabBarIcon
+        <Pressable
+          onPress={() => navigation.navigate("watchlist")}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        >
+          <Icon
             icon={
               currentRoute === "watchlist"
                 ? require("@/assets/icons/list_red.png")
@@ -30,8 +36,9 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
         <Pressable
           style={{ flexDirection: "row", alignItems: "center" }}
           onPress={() => navigation.navigate("search")}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <TabBarIcon
+          <Icon
             icon={
               currentRoute === "search"
                 ? require("@/assets/icons/search_red.png")
