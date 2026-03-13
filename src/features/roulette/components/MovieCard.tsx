@@ -47,7 +47,6 @@ export default function MovieCard({
       <Stack.Screen
         options={{
           headerShown: false,
-          title: "din film",
         }}
       />
       {/* Poster */}

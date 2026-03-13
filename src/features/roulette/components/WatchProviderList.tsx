@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   scrollContent: {
-    // Justera detta värde (t.ex. 80-100) beroende på hur hög din bottenmeny är
     paddingBottom: 50,
   },
 });

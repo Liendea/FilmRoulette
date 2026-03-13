@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { watchlistService } from "@/features/watchlist/api/watchlistService";
 import { useFocusEffect } from "expo-router";
 import { Movie } from "@/types/movietype";
@@ -21,19 +21,21 @@ export default function WatchlistScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      {movies.length === 0 ? (
-        <Text style={styles.emptyText}>Din lista är tom"</Text>
-      ) : (
-        <FlatList
-          data={movies}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <MovieCard item={item} onRefresh={loadWatchlist} />
-          )}
-        />
-      )}
-    </View>
+    <>
+      <View style={styles.container}>
+        {movies.length === 0 ? (
+          <Text style={styles.emptyText}>Din lista är tom</Text>
+        ) : (
+          <FlatList
+            data={movies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <MovieCard item={item} onRefresh={loadWatchlist} />
+            )}
+          />
+        )}
+      </View>
+    </>
   );
 }
 
@@ -42,6 +44,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#000000",
+    paddingBottom: 100,
+    paddingTop: 10,
   },
   title: {
     fontSize: 24,
