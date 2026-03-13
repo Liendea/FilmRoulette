@@ -12,7 +12,7 @@ import Icon from "@/components/ui/Icon";
 import { Stack } from "expo-router";
 import WatchProviderList from "./WatchProviderList";
 import { CountryWatchProviders } from "@/types/watchProvider";
-import AddToWatchListButton from "../../../components/AddToWatchListButton";
+import AddToWatchListButton from "./AddToWatchListButton";
 import ExitButton from "@/components/ui/ExitButton";
 import { watchlistService } from "@/features/watchlist/api/watchlistService";
 
@@ -91,7 +91,7 @@ export default function MovieCard({
 
       <Spacer height={10} />
       {/* Titel */}
-      <View style={styles.wrapper}>
+      <View style={styles.titleWrapper}>
         <Text style={styles.movieTitle}>{movie.title}</Text>
         <Text style={styles.subtitle}>{releaseYear}</Text>
       </View>
@@ -135,11 +135,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
-
+  titleWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
   movieTitle: {
     color: "#ffffff",
     fontSize: 24,
-    textAlign: "center",
+    width: "80%",
   },
   subtitle: {
     color: "#AAAAAA",
