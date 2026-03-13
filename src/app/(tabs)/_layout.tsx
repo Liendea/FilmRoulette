@@ -9,8 +9,7 @@ export default function TabLayoout() {
         tabBarShowLabel: false,
         sceneStyle: { backgroundColor: "#000000" },
         headerStyle: {
-          backgroundColor: "#000000",
-          position: "absolute",
+          backgroundColor: "#000",
         },
         headerTintColor: "#E50914",
         headerTitleStyle: {
