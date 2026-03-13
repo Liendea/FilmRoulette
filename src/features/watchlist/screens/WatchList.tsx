@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 import { watchlistService } from "@/features/watchlist/api/watchlistService";
 import { useFocusEffect } from "expo-router";
 import { Movie } from "@/types/movietype";
+import MovieCard from "../components/MovieCard";
 
 export default function WatchlistScreen() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -28,16 +29,7 @@ export default function WatchlistScreen() {
           data={movies}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <View style={styles.movieItem}>
-              <Image
-                source={{
-                  uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
-                }}
-                width={150}
-                height={300}
-              />
-              <Text style={styles.movieTitle}>{item.title}</Text>
-            </View>
+            <MovieCard item={item} onRefresh={loadWatchlist} />
           )}
         />
       )}
@@ -49,7 +41,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#000000",
   },
   title: {
     fontSize: 24,
@@ -57,14 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 40,
   },
-  movieItem: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-  },
-  movieTitle: {
-    fontSize: 18,
-  },
+
   emptyText: {
     textAlign: "center",
     marginTop: 50,
