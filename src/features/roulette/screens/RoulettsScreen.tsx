@@ -8,6 +8,9 @@ import MovieCard from "@/features/roulette/components/MovieCard";
 import { fetchWatchProviders } from "@/features/roulette/api/fetchWatchProviders";
 import { CountryWatchProviders } from "@/types/watchProvider";
 import HeroScreen from "./HeroScreen";
+import { Modal } from "react-native";
+import Toast from "react-native-toast-message";
+import { toastConfig } from "@/theme/toastConfig";
 
 export default function RouletteScreen() {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -36,15 +39,26 @@ export default function RouletteScreen() {
 
   return (
     <View style={styles.container}>
-      {movie ? (
-        <MovieCard
-          movie={movie}
-          watchProvider={watchProvider}
-          setMovie={setMovie}
-        />
-      ) : (
-        <HeroScreen handleShuffle={handleShuffle} loading={loading} />
-      )}
+      <HeroScreen handleShuffle={handleShuffle} loading={loading} />
+
+      <Modal
+        visible={movie !== null}
+        animationType="slide"
+        presentationStyle="pageSheet" // Snygg iOS-kort-effekt
+        onRequestClose={() => setMovie(null)} // För Android back-button/swipe
+      >
+        {/* 3. Denna vy gör modalens innehåll svart */}
+        <View style={styles.modalBackground}>
+          {movie && (
+            <MovieCard
+              movie={movie}
+              watchProvider={watchProvider}
+              setMovie={setMovie}
+            />
+          )}
+        </View>
+        <Toast config={toastConfig} />
+      </Modal>
     </View>
   );
 }
@@ -74,5 +88,9 @@ const styles = StyleSheet.create({
     color: "#AAAAAA",
     fontSize: 16,
     textAlign: "center",
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "#000", // Detta tvingar modalen att bli svart
   },
 });

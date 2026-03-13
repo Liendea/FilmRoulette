@@ -51,6 +51,7 @@ export default function WatchProviderList({
 const styles = StyleSheet.create({
   outerContainer: {
     width: "100%",
+    paddingHorizontal: 16,
   },
   scrollContent: {
     paddingBottom: 50,
