@@ -7,6 +7,7 @@ import { Movie } from "@/types/movietype";
 import MovieCard from "@/features/roulette/components/MovieCard";
 import { fetchWatchProviders } from "@/features/roulette/api/fetchWatchProviders";
 import { CountryWatchProviders } from "@/types/watchProvider";
+import HeroScreen from "./HeroScreen";
 
 export default function RouletteScreen() {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -34,38 +35,15 @@ export default function RouletteScreen() {
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        { justifyContent: movie ? "flex-start" : "center" },
-        { padding: movie ? 0 : 24 },
-      ]}
-    >
+    <View style={styles.container}>
       {movie ? (
-        <>
-          <Spacer height={10} />
-          <MovieCard
-            movie={movie}
-            watchProvider={watchProvider}
-            setMovie={setMovie}
-          />
-          {/* Shuffle button*/}
-          <Spacer height={30} />
-        </>
+        <MovieCard
+          movie={movie}
+          watchProvider={watchProvider}
+          setMovie={setMovie}
+        />
       ) : (
-        <>
-          <View style={styles.heroSection}>
-            <Text style={styles.emoji}>🍿</Text>
-            <Spacer height={20} />
-            <Text style={styles.title}>Svårt att välja film?</Text>
-            <Text style={styles.subtitle}>
-              Låt slumpen avgöra kvällens underhållning.
-            </Text>
-          </View>
-          {/* Shuffle button*/}
-          <Spacer height={60} />
-          <ShuffleButton onPress={handleShuffle} loading={loading} />
-        </>
+        <HeroScreen handleShuffle={handleShuffle} loading={loading} />
       )}
     </View>
   );
@@ -75,8 +53,9 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
+    padding: 20,
   },
   heroSection: {
     justifyContent: "center",

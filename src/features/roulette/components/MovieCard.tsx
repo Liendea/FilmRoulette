@@ -63,6 +63,7 @@ export default function MovieCard({
         <ExitButton onPress={onExitPress} />
       </View>
 
+      {/* Betyg  och add wo watchlist knapp */}
       <Spacer height={5} />
       <View style={styles.wrapper}>
         {/* Betyg */}
@@ -99,7 +100,7 @@ export default function MovieCard({
       <ScrollView style={styles.overview}>
         <Text style={styles.subtitle}>{movie.overview}</Text>
       </ScrollView>
-      <Spacer height={20} />
+      <Spacer height={10} />
       {/* Streaming tjänster */}
       <WatchProviderList providers={watchProvider} />
     </>
@@ -132,12 +133,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
   },
   titleWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
+    width: "100%",
   },
   movieTitle: {
     color: "#ffffff",
@@ -150,7 +151,6 @@ const styles = StyleSheet.create({
   },
   overview: {
     maxHeight: 110,
-    paddingHorizontal: 20,
   },
   addButton: {},
 });
