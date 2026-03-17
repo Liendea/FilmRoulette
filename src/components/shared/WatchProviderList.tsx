@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { CountryWatchProviders } from "@/types/watchProvider";
-import ProviderAccordion from "./ProviderAccordion"; // Importera den nya komponenten
+import ProviderAccordion from "./ProviderAccordion";
 
 type WatchProviderListProps = {
   providers: CountryWatchProviders | null;
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   scrollContent: {
-    paddingBottom: 50,
+    paddingBottom: 20,
   },
 });

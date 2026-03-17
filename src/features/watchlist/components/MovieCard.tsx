@@ -1,95 +1,110 @@
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-import type { Movie } from "@/types/movietype";
-import Icon from "@/components/ui/Icon";
+import { View, StyleSheet, Pressable } from "react-native";
+import type { WatchlistItem } from "@/types/movietype";
 import RemoveButton from "./RemoveButton";
-import Spacer from "@/components/ui/Spacer";
-import { watchlistService } from "../api/watchlistService";
+import { watchlistService } from "../utils/watchlistService";
+import MovieVote from "@/components/shared/MovieVote";
+import Spacer from "@/components/shared/Spacer";
+import WatchProviderList from "@/components/shared/WatchProviderList";
+import MovieDetails from "@/components/shared/MovieDetails";
+import { Text } from "react-native";
+import { useState } from "react";
+import MoviePoster from "@/components/shared/MoviePoster";
 
-type MovieCardProps = {
-  item: Movie;
+type WatchListMovieCardProps = {
+  watchlistItem: WatchlistItem;
   onRefresh: () => void;
 };
-export default function MovieCard({ item, onRefresh }: MovieCardProps) {
+export default function MovieCard({
+  watchlistItem,
+  onRefresh,
+}: WatchListMovieCardProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const movie = watchlistItem.movie;
+  const watchProvider = watchlistItem.providers;
+
   async function handleRemove(id: number) {
     await watchlistService.removeFromWatchlist(id);
     onRefresh();
   }
 
   return (
-    <View style={styles.movieItem}>
-      <Image
-        source={{
-          uri: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
-        }}
-        width={125}
-        height={175}
-        style={styles.moviePoster}
-      />
-      <View style={styles.movieDesc}>
+    <>
+      <View style={styles.movieItem}>
+        {/* Movie poster */}
+        <MoviePoster movie={movie} posterSize={"small"} />
         {/* Titel och realese år */}
-        <View>
-          <Text style={styles.movieTitle}>{item.title}</Text>
-          <Text style={styles.subtitle}>{item.release_date}</Text>
+        <View style={styles.movieDesc}>
+          <MovieDetails
+            movie={movie}
+            direction={"column"}
+            fontSize={12}
+            showOverView={true}
+          />
           <Spacer height={10} />
-          <ScrollView style={styles.scrollOverView}>
-            <Text style={styles.subtitle}>{item.overview}</Text>
-          </ScrollView>
-        </View>
-        {/* Betyg och remove knapp */}
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          {/* Betyg */}
-          <View style={styles.gradeWrapper}>
-            <Icon
-              icon={require("@/assets/icons/Star.png")}
-              width={20}
-              height={20}
-            />
-            <Text style={styles.subtitleBold}>{item.vote_average}</Text>
+          {/* Betyg och remove knapp */}
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            {/* Betyg */}
+            <MovieVote movie={movie} />
+            {/* Remove knapp */}
+            <RemoveButton onPress={() => handleRemove(movie.id)} />
           </View>
-          <RemoveButton onPress={() => handleRemove(item.id)} />
         </View>
+        {/* Remove knapp */}
       </View>
-    </View>
+
+      <View style={[styles.container, { borderBottomWidth: isOpen ? 0 : 1 }]}>
+        {/* Watchprovider accordion */}
+        <Pressable
+          onPress={() => setIsOpen(!isOpen)}
+          style={styles.accordionHeader}
+        >
+          <Text style={styles.accordionTitle}>Var kan jag se den?</Text>
+          <Text style={styles.arrow}>{isOpen ? "▲" : "▼"}</Text>
+        </Pressable>
+        {isOpen && (
+          <View style={styles.accordionContent}>
+            <WatchProviderList providers={watchProvider} />
+          </View>
+        )}
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  movieItem: {
-    borderBottomWidth: 1,
+  container: {
     borderBottomColor: "#928f8f75",
-
+  },
+  movieItem: {
     flexDirection: "row",
     gap: 20,
     paddingVertical: 15,
   },
-  moviePoster: {
-    borderRadius: 10,
-  },
   movieDesc: {
     width: "55%",
-    gap: 10,
     justifyContent: "space-between",
   },
-  movieTitle: {
-    fontSize: 18,
-    color: "#fff",
-  },
-  subtitle: {
-    fontSize: 12,
-    color: "#b7b5b5",
-  },
-  scrollOverView: {
-    maxHeight: 100,
-    paddingBottom: 50,
-  },
-  gradeWrapper: {
+  accordionHeader: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 5,
   },
-  subtitleBold: {
-    fontSize: 12,
-    fontWeight: "bold",
+  accordionTitle: {
     color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  accordionContent: {
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+  },
+  arrow: {
+    color: "#aaa",
+    fontSize: 12,
   },
 });

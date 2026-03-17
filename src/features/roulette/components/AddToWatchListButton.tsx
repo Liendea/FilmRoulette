@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import Icon from "@/components/ui/Icon";
+import Icon from "@/components/shared/Icon";
 
 type AddToWatchListButtonProps = {
   onPress: () => void | Promise<void>;

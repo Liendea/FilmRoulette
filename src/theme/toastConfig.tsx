@@ -5,7 +5,7 @@ export const toastConfig: ToastConfig = {
     <BaseToast
       {...props}
       style={{
-        backgroundColor: "#1a1a1a",
+        backgroundColor: "#1a1a1ae6",
         borderLeftColor: "#E50914",
         height: 70,
         width: "90%",
@@ -26,7 +26,7 @@ export const toastConfig: ToastConfig = {
     <BaseToast
       {...props}
       style={{
-        backgroundColor: "#1a1a1a",
+        backgroundColor: "#1a1a1ae6",
         borderLeftColor: "#5a5959",
         height: 70,
         width: "90%",

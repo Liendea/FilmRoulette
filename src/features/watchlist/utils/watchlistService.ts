@@ -1,13 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Movie } from "@/types/movietype";
+import { WatchlistItem } from "@/types/movietype";
+
 const WATCHLIST_KEY = "@movie_watchlist";
 
 export const watchlistService = {
   // Hämta listan
-  getWatchlist: async () => {
+  getWatchlist: async (): Promise<WatchlistItem[]> => {
     try {
       const jsonValue = await AsyncStorage.getItem(WATCHLIST_KEY);
-      return jsonValue != null ? JSON.parse(jsonValue) : [];
+      return jsonValue != null
+        ? (JSON.parse(jsonValue) as WatchlistItem[])
+        : [];
     } catch (e) {
       console.error("Kunde inte hämta watchlist", e);
       return [];
@@ -15,13 +18,14 @@ export const watchlistService = {
   },
 
   // Lägg till en film (om den inte redan finns)
-  addToWatchlist: async (movie: Movie) => {
+  addToWatchlist: async (item: WatchlistItem) => {
     try {
-      const currentList = await watchlistService.getWatchlist();
-      const exists = currentList.find((m: Movie) => m.id === movie.id);
+      const currentList: WatchlistItem[] =
+        await watchlistService.getWatchlist();
+      const exists = currentList.find((i) => i.movie.id === item.movie.id);
 
       if (!exists) {
-        const newList = [...currentList, movie];
+        const newList = [...currentList, item];
         await AsyncStorage.setItem(WATCHLIST_KEY, JSON.stringify(newList));
         return true;
       }
@@ -35,7 +39,9 @@ export const watchlistService = {
   // Ta bort film från watchlist
   removeFromWatchlist: async (movieId: number) => {
     const currentList = await watchlistService.getWatchlist();
-    const newList = currentList.filter((movie: Movie) => movie.id !== movieId);
+    const newList = currentList.filter(
+      (item: WatchlistItem) => item.movie.id !== movieId,
+    );
     await AsyncStorage.setItem(WATCHLIST_KEY, JSON.stringify(newList));
     return newList;
   },

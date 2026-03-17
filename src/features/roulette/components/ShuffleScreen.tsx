@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
-import Spacer from "@/components/ui/Spacer";
-import ShuffleButton from "../components/ShuffleButton";
+import Spacer from "@/components/shared/Spacer";
+import Button from "@/components/shared/Button";
 
 type HeroScreenProps = {
   handleShuffle: () => void;
@@ -22,7 +22,11 @@ export default function HeroScreen({
       </View>
       {/* Shuffle button*/}
       <Spacer height={60} />
-      <ShuffleButton onPress={handleShuffle} loading={loading} />
+      <Button
+        onPress={handleShuffle}
+        loading={loading}
+        buttonText={"SLUMPA FRAM EN FILM"}
+      />
     </>
   );
 }

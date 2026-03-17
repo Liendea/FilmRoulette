@@ -1,4 +1,4 @@
-import Icon from "@/components/ui/Icon";
+import Icon from "@/components/shared/Icon";
 import { Text, StyleSheet, Pressable } from "react-native";
 
 type RemoveButtonProps = {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import { watchlistService } from "@/features/watchlist/api/watchlistService";
+import { watchlistService } from "@/features/watchlist/utils/watchlistService";
 import { useFocusEffect } from "expo-router";
-import { Movie } from "@/types/movietype";
+import { WatchlistItem } from "@/types/movietype";
 import MovieCard from "../components/MovieCard";
 
 export default function WatchlistScreen() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [items, setItems] = useState<WatchlistItem[]>([]);
 
   // useFocusEffect så att listan uppdateras VARJE gång man navigerar till fliken
   useFocusEffect(
@@ -16,21 +16,21 @@ export default function WatchlistScreen() {
   );
 
   const loadWatchlist = async () => {
-    const savedMovies = await watchlistService.getWatchlist();
-    setMovies(savedMovies);
+    const savedItems = await watchlistService.getWatchlist();
+    setItems(savedItems);
   };
 
   return (
     <>
       <View style={styles.container}>
-        {movies.length === 0 ? (
+        {items.length === 0 ? (
           <Text style={styles.emptyText}>Din lista är tom</Text>
         ) : (
           <FlatList
-            data={movies}
-            keyExtractor={(item) => item.id.toString()}
+            data={items}
+            keyExtractor={(item) => item.movie.id.toString()}
             renderItem={({ item }) => (
-              <MovieCard item={item} onRefresh={loadWatchlist} />
+              <MovieCard watchlistItem={item} onRefresh={loadWatchlist} />
             )}
           />
         )}

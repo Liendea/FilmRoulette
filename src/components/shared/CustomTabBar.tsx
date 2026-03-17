@@ -1,11 +1,12 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import Icon from "./ui/Icon";
+import Icon from "./Icon";
 
 export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const currentRoute = state.routes[state.index].name;
   return (
     <View style={styles.container}>
+      {/* Left Pill */}
       <View style={styles.leftPill}>
         <Pressable
           onPress={() => navigation.navigate("index")}
@@ -32,15 +33,16 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
           />
         </Pressable>
       </View>
+      {/* Right Pill */}
       <View style={styles.rightPill}>
         <Pressable
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => navigation.navigate("search")}
+          onPress={() => navigation.navigate("discover")}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <Icon
             icon={
-              currentRoute === "search"
+              currentRoute === "discover"
                 ? require("@/assets/icons/search_red.png")
                 : require("@/assets/icons/search_white.png")
             }
@@ -48,10 +50,10 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
           <Text
             style={[
               styles.text,
-              { color: currentRoute === "search" ? "red" : "white" },
+              { color: currentRoute === "discover" ? "red" : "white" },
             ]}
           >
-            Filtrera
+            Upptäck
           </Text>
         </Pressable>
       </View>
