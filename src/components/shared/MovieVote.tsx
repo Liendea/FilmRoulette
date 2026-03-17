@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Movie } from "@/types/movietype";
-import Icon from "@/components/shared/Icon";
+import { StarIcon } from "phosphor-react-native";
 
 type MovieVoteProps = {
   movie: Movie;
@@ -9,7 +9,8 @@ type MovieVoteProps = {
 export default function MovieVote({ movie }: MovieVoteProps) {
   return (
     <View style={styles.voteContainer}>
-      <Icon icon={require("@/assets/icons/Star.png")} width={20} height={20} />
+      <StarIcon color="yellow" weight="fill" size={20} />
+
       <Text style={styles.subtitle}>{movie.vote_average}</Text>
     </View>
   );

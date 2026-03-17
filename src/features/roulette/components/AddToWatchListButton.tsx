@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import Icon from "@/components/shared/Icon";
+import { PlusCircleIcon } from "phosphor-react-native";
 
 type AddToWatchListButtonProps = {
   onPress: () => void | Promise<void>;
@@ -10,11 +10,7 @@ export default function AddToWatchListButton({
 }: AddToWatchListButtonProps) {
   return (
     <Pressable style={styles.button} onPress={onPress}>
-      <Icon
-        icon={require("@/assets/icons/plus_white.png")}
-        height={15}
-        width={15}
-      />
+      <PlusCircleIcon color="#fff" weight="fill" size={15} />
       <Text style={styles.text}>Lägg till i lista</Text>
     </Pressable>
   );

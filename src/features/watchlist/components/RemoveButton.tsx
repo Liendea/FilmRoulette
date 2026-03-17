@@ -1,5 +1,5 @@
-import Icon from "@/components/shared/Icon";
 import { Text, StyleSheet, Pressable } from "react-native";
+import { XCircleIcon } from "phosphor-react-native";
 
 type RemoveButtonProps = {
   onPress: () => void;
@@ -7,11 +7,7 @@ type RemoveButtonProps = {
 export default function RemoveButton({ onPress }: RemoveButtonProps) {
   return (
     <Pressable style={styles.button} onPress={onPress}>
-      <Icon
-        icon={require("@/assets/icons/exit_grey.png")}
-        width={10}
-        height={10}
-      />
+      <XCircleIcon color="#fff" weight="fill" size={20} />
       <Text style={styles.text}>Ta bort</Text>
     </Pressable>
   );
