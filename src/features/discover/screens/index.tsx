@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 import MovieList from "../components/MovieList";
 import { useState, useCallback, useRef } from "react";
 import FilterModal from "../components/FilterModal";
@@ -8,6 +8,7 @@ import { useFocusEffect } from "expo-router";
 import { ActivityIndicator } from "react-native";
 import { Movie } from "@/types/movietype";
 import { LinearGradient } from "expo-linear-gradient";
+import { SlidersHorizontalIcon } from "phosphor-react-native";
 
 export default function DiscoverScreen() {
   const [visible, setVisible] = useState(true);
@@ -41,12 +42,19 @@ export default function DiscoverScreen() {
 
   return (
     <View style={styles.container}>
+      <Pressable
+        style={styles.filterIcon}
+        onPress={() => {
+          setVisible(true);
+        }}
+        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+      >
+        <SlidersHorizontalIcon color="#ffffff" weight="fill" size={32} />
+      </Pressable>
+
+      <MovieList movies={movies} onEndReached={loadMore} />
       {/* MovieList */}
-      {loading ? (
-        <ActivityIndicator size="large" color="#E50914" />
-      ) : (
-        <MovieList movies={movies} onEndReached={loadMore} />
-      )}
+      {loading && <ActivityIndicator size="large" color="#E50914" />}
 
       {/* Filter modal */}
       <FilterModal
@@ -55,8 +63,12 @@ export default function DiscoverScreen() {
         onSearch={handleSearch}
       />
       <LinearGradient
+        colors={["#000", "#000", "rgba(0,0,0,0.7)", "transparent"]}
+        style={styles.topShadow}
+      />
+      <LinearGradient
         colors={["transparent", "rgba(0,0,0,0.7)", "#000", "#000"]}
-        style={styles.shadow}
+        style={styles.bottomShadow}
       />
     </View>
   );
@@ -69,10 +81,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+    paddingTop: 80,
   },
-  shadow: {
+  filterIcon: {
+    position: "absolute",
+    top: 60,
+    right: 30,
+    zIndex: 100,
+  },
+  bottomShadow: {
     position: "absolute",
     bottom: 0,
+    left: 0,
+    right: 0,
+    height: 100,
+  },
+  topShadow: {
+    position: "absolute",
+    top: 30,
     left: 0,
     right: 0,
     height: 150,

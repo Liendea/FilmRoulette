@@ -1,6 +1,8 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import Icon from "./Icon";
+import { FilmReelIcon } from "phosphor-react-native";
+import { ListStarIcon } from "phosphor-react-native";
+import { MagnifyingGlassIcon } from "phosphor-react-native";
 
 export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const currentRoute = state.routes[state.index].name;
@@ -12,24 +14,20 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
           onPress={() => navigation.navigate("index")}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <Icon
-            icon={
-              currentRoute === "index"
-                ? require("@/assets/icons/film_red.png")
-                : require("@/assets/icons/film_white.png")
-            }
+          <FilmReelIcon
+            color={currentRoute === "index" ? "red" : "#ffffff"}
+            weight="fill"
+            size={32}
           />
         </Pressable>
         <Pressable
           onPress={() => navigation.navigate("watchlist")}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <Icon
-            icon={
-              currentRoute === "watchlist"
-                ? require("@/assets/icons/list_red.png")
-                : require("@/assets/icons/list_white.png")
-            }
+          <ListStarIcon
+            color={currentRoute === "watchlist" ? "red" : "#ffffff"}
+            weight="fill"
+            size={32}
           />
         </Pressable>
       </View>
@@ -40,12 +38,10 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
           onPress={() => navigation.navigate("discover")}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
-          <Icon
-            icon={
-              currentRoute === "discover"
-                ? require("@/assets/icons/search_red.png")
-                : require("@/assets/icons/search_white.png")
-            }
+          <MagnifyingGlassIcon
+            color={currentRoute === "discover" ? "red" : "#ffffff"}
+            weight="fill"
+            size={32}
           />
           <Text
             style={[

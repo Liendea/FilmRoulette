@@ -18,7 +18,17 @@ export default function TabLayoout() {
       }}
     >
       <Tabs.Screen name="index" options={{ title: "FILM ROULETTE" }} />
-      <Tabs.Screen name="discover" options={{ title: "DISCOVER" }} />
+      <Tabs.Screen
+        name="discover"
+        options={{
+          title: "DISCOVER",
+          headerTransparent: true,
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: "transparent", // Säkerställer transparens på Android
+          },
+        }}
+      />
       <Tabs.Screen name="watchlist" options={{ title: "WATCH LIST" }} />
     </Tabs>
   );
