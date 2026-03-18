@@ -56,6 +56,7 @@ export default function MovieList({ movies, onEndReached }: MovieListProps) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    paddingTop: 120,
   },
   card: {
     width: "50%",

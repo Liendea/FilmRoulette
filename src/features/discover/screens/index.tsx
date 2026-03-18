@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   filterIcon: {
     position: "absolute",
-    top: 60,
+    top: 63,
     right: 30,
     zIndex: 100,
   },
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   topShadow: {
     position: "absolute",
-    top: 0,
+    top: 20,
     left: 0,
     right: 0,
     height: 150,
