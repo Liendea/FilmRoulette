@@ -2,15 +2,19 @@
 
 En interaktiv mobilapplikation byggd med React Native och Expo som hjälper användare att upptäcka filmer genom ett "roulette"-koncept eller söka på filmer med hjälp av olika filters. Appen använder TMDB API för att hämta realtidsdata om filmer, serier och streamingtjänster.
 
-ScreenShots:
+## ScreenShots
 
-<img width="1170" height="2532" alt="Simulator Screenshot - iPhone 16e - 2026-03-18 at 18 38 27" src="https://github.com/user-attachments/assets/18a25613-6a71-41b8-8a08-e4fc13952b38" />
-<img width="1170" height="2532" alt="Simulator Screenshot - iPhone 16e - 2026-03-18 at 18 38 19" src="https://github.com/user-attachments/assets/85fa288a-3afa-4ff1-964d-990ef698ff48" />
-<img width="1170" height="2532" alt="Simulator Screenshot - iPhone 16e - 2026-03-18 at 18 38 05" src="https://github.com/user-attachments/assets/f17376ec-079c-4aad-aef7-4713eed78597" />
-<img width="1170" height="2532" alt="Simulator Screenshot - iPhone 16e - 2026-03-18 at 18 37 58" src="https://github.com/user-attachments/assets/4382b4b6-543c-4cee-b472-ec34c7cfec73" />
-<img width="1170" height="2532" alt="Simulator Screenshot - iPhone 16e - 2026-03-18 at 18 37 54" src="https://github.com/user-attachments/assets/ed19328f-e474-4345-939e-94498777caad" />
-<img width="1170" height="2532" alt="Simulator Screenshot - iPhone 16e - 2026-03-18 at 18 37 28" src="https://github.com/user-attachments/assets/b2af1f35-86a1-45e5-b1a3-466d7e657923" />
-<img width="1170" height="2532" alt="Simulator Screenshot - iPhone 16e - 2026-03-18 at 18 37 12" src="https://github.com/user-attachments/assets/3467d4d0-f6f2-4270-875f-b19a277d8d7c" />
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/18a25613-6a71-41b8-8a08-e4fc13952b38" width="24%" />
+  <img src="https://github.com/user-attachments/assets/85fa288a-3afa-4ff1-964d-990ef698ff48" width="24%" />
+  <img src="https://github.com/user-attachments/assets/f17376ec-079c-4aad-aef7-4713eed78597" width="24%" />
+  <img src="https://github.com/user-attachments/assets/4382b4b6-543c-4cee-b472-ec34c7cfec73" width="24%" />
+</p>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/ed19328f-e474-4345-939e-94498777caad" width="24%" />
+  <img src="https://github.com/user-attachments/assets/b2af1f35-86a1-45e5-b1a3-466d7e657923" width="24%" />
+  <img src="https://github.com/user-attachments/assets/3467d4d0-f6f2-4270-875f-b19a277d8d7c" width="24%" />
+</p>
 
 
 
