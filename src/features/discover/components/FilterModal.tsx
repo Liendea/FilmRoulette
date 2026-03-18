@@ -11,7 +11,10 @@ import { fetchGenres } from "../api/fetchMetadata";
 import Spacer from "@/sharedComponents/Spacer";
 import { SearchFilters } from "@/types/searchfilters";
 import Button from "@/sharedComponents/Button";
-import Chip from "./Chip";
+
+import Category from "./Category";
+import MinRating from "./MinRatingDropdown";
+import GenreDropdown from "./GenreDropdown";
 
 type Genre = {
   id: number;
@@ -32,6 +35,7 @@ export default function FilterModal({
   const [genres, setGenres] = useState<Genre[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [type, setType] = useState<"movie" | "tv">("movie");
+  const [minRating, setMinRating] = useState<number>(0);
 
   // Hämta genres när modalen visas
   useEffect(() => {
@@ -44,21 +48,11 @@ export default function FilterModal({
     }
   }, [visible, type]);
 
-  {
-    /* Toggla genre klick */
-  }
-  const toggleGenre = (id: number) => {
-    if (selectedGenres.includes(id)) {
-      setSelectedGenres(selectedGenres.filter((g) => g !== id));
-    } else {
-      setSelectedGenres([...selectedGenres, id]);
-    }
-  };
-
   const handleApplyFilters = () => {
     const filters: SearchFilters = {
       type,
       genres: selectedGenres,
+      minRating: minRating,
       watchRegion: "SE",
     };
     onSearch(filters);
@@ -74,53 +68,29 @@ export default function FilterModal({
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Filter</Text>
           <Pressable onPress={onClose}>
             <Text style={styles.closeButton}>Avbryt</Text>
           </Pressable>
         </View>
-
+        <Spacer height={40} />
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* Typ av innehåll */}
           <Text style={styles.sectionTitle}>Jag letar efter:</Text>
-          <View style={styles.row}>
-            <Pressable
-              style={[
-                styles.typeButton,
-                type === "movie" && styles.selectedType,
-              ]}
-              onPress={() => setType("movie")}
-            >
-              <Text style={styles.buttonText}>Filmer</Text>
-            </Pressable>
-            <Pressable
-              disabled={true}
-              style={[styles.typeButton, type === "tv" && styles.selectedType]}
-              onPress={() => setType("tv")}
-            >
-              <Text style={styles.buttonText}>Serier</Text>
-            </Pressable>
-          </View>
+          <Spacer height={10} />
+          <Category type={type} setType={setType} />
+          <Spacer height={30} />
 
+          {/* Genre Dropdown */}
+          <Text style={styles.sectionTitle}>Genres</Text>
+          <GenreDropdown
+            genres={genres}
+            selectedGenres={selectedGenres}
+            setSelectedGenres={setSelectedGenres}
+          />
           <Spacer height={20} />
-
-          {/* Genre Chips */}
-          <Text style={styles.sectionTitle}>Kategorier</Text>
-          <View style={styles.chipContainer}>
-            {genres.map((genre) => (
-              <Chip
-                key={genre.id}
-                onPress={() => {
-                  toggleGenre(genre.id);
-                }}
-                id={genre.id}
-                name={genre.name}
-                selectedGenres={selectedGenres}
-              />
-            ))}
-          </View>
-
-          <Spacer height={40} />
+          <Text style={styles.label}>Minsta betyg</Text>
+          <Spacer height={10} />
+          <MinRating minRating={minRating} setMinRating={setMinRating} />
         </ScrollView>
 
         <Button onPress={handleApplyFilters} buttonText={"Hitta filmer"} />
@@ -130,22 +100,34 @@ export default function FilterModal({
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#121212", padding: 20 },
+  container: {
+    flex: 1,
+    backgroundColor: "#121212",
+    padding: 20,
+  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20,
   },
-  title: { color: "#fff", fontSize: 24, fontWeight: "bold" },
-  closeButton: { color: "#E50914", fontSize: 16 },
+  title: {
+    color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  closeButton: {
+    color: "#E50914",
+    fontSize: 16,
+  },
   sectionTitle: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 10,
   },
-  row: { flexDirection: "row", gap: 10 },
+  row: {
+    flexDirection: "row",
+    gap: 10,
+  },
   typeButton: {
     flex: 1,
     padding: 12,
@@ -153,7 +135,22 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
   },
-  selectedType: { backgroundColor: "#E50914" },
-  buttonText: { color: "#fff", fontWeight: "600" },
-  chipContainer: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  selectedType: {
+    backgroundColor: "#E50914",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  chipContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+
+  label: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
 });
