@@ -2,7 +2,11 @@ import { StyleSheet, View, Text } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { StarIcon } from "phosphor-react-native";
 
-<StarIcon color="yellow" weight="fill" size={20} />;
+type RatingItem = {
+  label: string;
+  value: string;
+};
+
 const data = [
   { label: "Alla betyg", value: "0" },
   { label: "1+ ", value: "1" },
@@ -20,7 +24,7 @@ type MinRatingProps = {
   setMinRating: (value: number) => void;
 };
 
-const renderItem = (item: any) => {
+const renderItem = (item: RatingItem) => {
   return (
     <View style={styles.item}>
       {item.value !== "0" && (

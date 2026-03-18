@@ -7,6 +7,11 @@ type Genre = {
   name: string;
 };
 
+type GenreItem = {
+  label: string;
+  value: string;
+};
+
 type Props = {
   genres: Genre[];
   selectedGenres: number[];
@@ -24,7 +29,7 @@ export default function GenreDropdown({
     value: g.id.toString(),
   }));
 
-  const renderItem = (item: any) => {
+  const renderItem = (item: GenreItem) => {
     return (
       <View style={styles.item}>
         <Text style={styles.selectedTextStyle}>{item.label}</Text>
@@ -55,7 +60,7 @@ export default function GenreDropdown({
           setSelectedGenres(item.map((id) => Number(id)));
         }}
         renderItem={renderItem}
-        // rendera de valda chipsen inuti/under dropdownen
+        // visa de valda chipsen under dropdownen
         selectedStyle={styles.selectedStyle}
       />
     </View>

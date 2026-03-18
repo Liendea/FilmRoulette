@@ -1,3 +1,5 @@
+import { Movie } from "@/types/movietype";
+
 const ACCESS_TOKEN = process.env.EXPO_PUBLIC_TMDB_ACCESS_TOKEN;
 
 export const fetchRandomMovie = async () => {
@@ -20,7 +22,7 @@ export const fetchRandomMovie = async () => {
   if (Array.isArray(data.results)) {
     // 3. Filtrera bort de som saknar overview
     const filteredMovies = data.results.filter(
-      (movie: any) => movie.overview && movie.overview.trim() !== "",
+      (movie: Movie) => movie.overview && movie.overview.trim() !== "",
     );
 
     // 4. Kolla om vi har några filmer KVAR efter filtreringen

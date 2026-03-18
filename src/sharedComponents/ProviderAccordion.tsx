@@ -7,10 +7,11 @@ import {
   Text,
   Pressable,
 } from "react-native";
+import { WatchProvider } from "@/types/watchProvider";
 
 interface ProviderAccordionProps {
   title: string;
-  data: any[];
+  data: WatchProvider[];
   isOpen: boolean;
   onPress: () => void;
   emptyText: string;
