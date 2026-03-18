@@ -1,10 +1,9 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import MovieList from "../components/MovieList";
-import { useState, useCallback, useRef } from "react";
+import { useState, useRef } from "react";
 import FilterModal from "../components/FilterModal";
 import { discoverMovies } from "../api/discoverMovies";
 import { SearchFilters } from "@/types/searchfilters";
-import { useFocusEffect } from "expo-router";
 import { ActivityIndicator } from "react-native";
 import { Movie } from "@/types/movietype";
 import { LinearGradient } from "expo-linear-gradient";
@@ -16,13 +15,6 @@ export default function DiscoverScreen() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const currentFilters = useRef<SearchFilters | null>(null);
-
-  // useFocusEffect sökmodalen öppnas varje gång man går in på sidan
-  useFocusEffect(
-    useCallback(() => {
-      setVisible(true);
-    }, []),
-  );
 
   async function handleSearch(filters: SearchFilters) {
     currentFilters.current = filters;
