@@ -2,13 +2,13 @@ import { View, StyleSheet, Pressable } from "react-native";
 import type { WatchlistItem } from "@/types/movietype";
 import RemoveButton from "./RemoveButton";
 import { watchlistService } from "../utils/watchlistService";
-import MovieVote from "@/components/shared/MovieVote";
-import Spacer from "@/components/shared/Spacer";
-import WatchProviderList from "@/components/shared/WatchProviderList";
-import MovieDetails from "@/components/shared/MovieDetails";
+import MovieVote from "@/sharedComponents/MovieVote";
+import Spacer from "@/sharedComponents/Spacer";
+import WatchProviderList from "@/sharedComponents/WatchProviderList";
+import MovieDetails from "@/sharedComponents/MovieDetails";
 import { Text } from "react-native";
 import { useState } from "react";
-import MoviePoster from "@/components/shared/MoviePoster";
+import MoviePoster from "@/sharedComponents/MoviePoster";
 
 type WatchListMovieCardProps = {
   watchlistItem: WatchlistItem;

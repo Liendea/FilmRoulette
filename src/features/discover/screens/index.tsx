@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import MovieList from "../components/MovieList";
 import { useState, useCallback, useRef } from "react";
 import FilterModal from "../components/FilterModal";
@@ -17,6 +17,7 @@ export default function DiscoverScreen() {
   const [page, setPage] = useState(1);
   const currentFilters = useRef<SearchFilters | null>(null);
 
+  // useFocusEffect sökmodalen öppnas varje gång man går in på sidan
   useFocusEffect(
     useCallback(() => {
       setVisible(true);
@@ -49,7 +50,10 @@ export default function DiscoverScreen() {
         }}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
       >
-        <SlidersHorizontalIcon color="#ffffff" weight="fill" size={32} />
+        <View style={styles.filterWrapper}>
+          <Text style={styles.text}>Filtrera</Text>
+          <SlidersHorizontalIcon color="#ffffff" weight="fill" size={32} />
+        </View>
       </Pressable>
 
       <MovieList movies={movies} onEndReached={loadMore} />
@@ -80,8 +84,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    paddingTop: 80,
   },
   filterIcon: {
     position: "absolute",
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
   topShadow: {
     position: "absolute",
-    top: 30,
+    top: 0,
     left: 0,
     right: 0,
     height: 150,
@@ -106,5 +108,14 @@ const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
     backgroundColor: "#000",
+  },
+  filterWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+  },
+
+  text: {
+    color: "white",
   },
 });

@@ -6,7 +6,7 @@ export const discoverMovies = async (filters: SearchFilters, page = 1) => {
 
   // Dynamiska filter
   if (filters.genres && filters.genres.length > 0) {
-    url += `&with_genres=${filters.genres.join(",")}`;
+    url += `&with_genres=${filters.genres.join("|")}`;
   }
 
   if (filters.minRating && filters.minRating > 0) {

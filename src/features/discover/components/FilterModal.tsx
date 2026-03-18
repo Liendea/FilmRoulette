@@ -8,9 +8,9 @@ import {
   Pressable,
 } from "react-native";
 import { fetchGenres } from "../api/fetchMetadata";
-import Spacer from "@/components/shared/Spacer";
+import Spacer from "@/sharedComponents/Spacer";
 import { SearchFilters } from "@/types/searchfilters";
-import Button from "@/components/shared/Button";
+import Button from "@/sharedComponents/Button";
 import Chip from "./Chip";
 
 type Genre = {

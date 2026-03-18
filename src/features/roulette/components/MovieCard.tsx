@@ -1,25 +1,27 @@
 import { StyleSheet, View, ActivityIndicator } from "react-native";
-import Spacer from "@/components/shared/Spacer";
+import Spacer from "@/sharedComponents/Spacer";
 import { Movie } from "@/types/movietype";
-import WatchProviderList from "../../../components/shared/WatchProviderList";
+import WatchProviderList from "../../../sharedComponents/WatchProviderList";
 import { CountryWatchProviders } from "@/types/watchProvider";
 import AddToWatchListButton from "./AddToWatchListButton";
-import MovieVote from "@/components/shared/MovieVote";
-import MovieDetails from "@/components/shared/MovieDetails";
-import MoviePoster from "@/components/shared/MoviePoster";
-import Handle from "@/components/shared/Handle";
+import MovieVote from "@/sharedComponents/MovieVote";
+import MovieDetails from "@/sharedComponents/MovieDetails";
+import MoviePoster from "@/sharedComponents/MoviePoster";
+import Handle from "@/sharedComponents/Handle";
 import { useWatchlistActions } from "../hooks/useWatchlistActions";
 
 type MovieCardProps = {
   movie: Movie;
   watchProvider: CountryWatchProviders | null;
   loading: boolean;
+  showHandle?: boolean;
 };
 
 export default function MovieCard({
   movie,
   watchProvider,
   loading,
+  showHandle = true,
 }: MovieCardProps) {
   const { addToWatchlist } = useWatchlistActions();
 
@@ -32,7 +34,7 @@ export default function MovieCard({
         <MoviePoster movie={movie} posterSize="big" />
       )}
       {/* handtag för att stänga modalen */}
-      <Handle />
+      {showHandle && <Handle />}
       <Spacer height={10} />
       {/* Betyg  och add wo watchlist knapp */}
       <View style={styles.voteWrapper}>

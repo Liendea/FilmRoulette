@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Movie } from "@/types/movietype";
 import { FlatList } from "react-native";
-import MoviePoster from "@/components/shared/MoviePoster";
-import Spacer from "@/components/shared/Spacer";
-import MovieVote from "@/components/shared/MovieVote";
+import MoviePoster from "@/sharedComponents/MoviePoster";
+import Spacer from "@/sharedComponents/Spacer";
+import MovieVote from "@/sharedComponents/MovieVote";
+import { useRouter } from "expo-router";
 
 type MovieListProps = {
   movies: Movie[];
@@ -11,10 +12,12 @@ type MovieListProps = {
 };
 
 export default function MovieList({ movies, onEndReached }: MovieListProps) {
+  const router = useRouter();
+
   if (movies.length === 0) {
     return (
       <View>
-        <Text>Inga filmer hittades</Text>
+        <Text style={styles.subtitle}>Inga filmer hittades</Text>
       </View>
     );
   }
@@ -29,7 +32,10 @@ export default function MovieList({ movies, onEndReached }: MovieListProps) {
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
         renderItem={({ item }) => (
-          <View style={styles.card}>
+          <Pressable
+            style={styles.card}
+            onPress={() => router.push(`/movie/${item.id}`)}
+          >
             <MoviePoster movie={item} posterSize={"small"} />
             <Spacer height={5} />
             <MovieVote movie={item} />
@@ -40,7 +46,7 @@ export default function MovieList({ movies, onEndReached }: MovieListProps) {
               {item.release_date.split("-")[0]}
             </Text>
             <Spacer height={20} />
-          </View>
+          </Pressable>
         )}
       />
     </View>

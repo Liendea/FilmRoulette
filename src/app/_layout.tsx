@@ -9,6 +9,15 @@ export default function RootLayout() {
       <StatusBar style="light" />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="movie/[id]"
+          options={{
+            headerTitle: "Filminfo",
+            headerTintColor: "#fff",
+            headerStyle: { backgroundColor: "#000" },
+            headerBackTitle: "Tillbaka",
+          }}
+        />
       </Stack>
       <Toast config={toastConfig} />
     </>

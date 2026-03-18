@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
-import Spacer from "@/components/shared/Spacer";
-import Button from "@/components/shared/Button";
+import Spacer from "@/sharedComponents/Spacer";
+import Button from "@/sharedComponents/Button";
 
 type HeroScreenProps = {
   handleShuffle: () => void;

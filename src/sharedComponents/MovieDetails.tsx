@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View, FlexStyle } from "react-native";
-import Spacer from "@/components/shared/Spacer";
+import Spacer from "@/sharedComponents/Spacer";
 import { Movie } from "@/types/movietype";
 
 type MovieDetailsProps = {
