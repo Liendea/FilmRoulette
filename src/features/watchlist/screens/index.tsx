@@ -50,13 +50,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
-    marginTop: 40,
   },
 
   emptyText: {
     textAlign: "center",
-    marginTop: 50,
+
     color: "#888",
   },
 });

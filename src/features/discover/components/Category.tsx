@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 10,
   },
   row: { flexDirection: "row", gap: 10 },
   typeButton: {
