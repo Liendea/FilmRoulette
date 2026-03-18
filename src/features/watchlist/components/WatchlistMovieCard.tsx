@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import type { WatchlistItem } from "@/types/movietype";
 import RemoveButton from "./RemoveButton";
 import { watchlistService } from "../utils/watchlistService";
@@ -6,7 +6,6 @@ import MovieVote from "@/sharedComponents/MovieVote";
 import Spacer from "@/sharedComponents/Spacer";
 import WatchProviderList from "@/sharedComponents/WatchProviderList";
 import MovieDetails from "@/sharedComponents/MovieDetails";
-import { Text } from "react-native";
 import { useState } from "react";
 import MoviePoster from "@/sharedComponents/MoviePoster";
 
@@ -14,7 +13,7 @@ type WatchListMovieCardProps = {
   watchlistItem: WatchlistItem;
   onRefresh: () => void;
 };
-export default function MovieCard({
+export default function WatchlistMovieCard({
   watchlistItem,
   onRefresh,
 }: WatchListMovieCardProps) {
@@ -40,6 +39,7 @@ export default function MovieCard({
             direction={"column"}
             fontSize={12}
             showOverView={true}
+            align={"flex-start"}
           />
           <Spacer height={10} />
           {/* Betyg och remove knapp */}

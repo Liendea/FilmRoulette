@@ -1,4 +1,9 @@
-import { StyleSheet, View, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  FlexAlignType,
+} from "react-native";
 import Spacer from "@/sharedComponents/Spacer";
 import { Movie } from "@/types/movietype";
 import WatchProviderList from "./WatchProviderList";
@@ -16,6 +21,7 @@ type MovieCardProps = {
   loading: boolean;
   showHandle?: boolean;
   overViewSize?: number;
+  align?: FlexAlignType;
 };
 
 export default function MovieCard({
@@ -24,6 +30,7 @@ export default function MovieCard({
   loading,
   showHandle = true,
   overViewSize,
+  align,
 }: MovieCardProps) {
   const { addToWatchlist } = useWatchlistActions();
 
@@ -39,7 +46,7 @@ export default function MovieCard({
 
       {/* handtag för att stänga modalen */}
       {showHandle && <Handle />}
-      <Spacer height={10} />
+      <Spacer height={15} />
       {/* Betyg  och add wo watchlist knapp */}
       <View style={styles.voteWrapper}>
         <MovieVote movie={movie} />
@@ -49,13 +56,14 @@ export default function MovieCard({
           }}
         />
       </View>
-      <Spacer height={10} />
+      <Spacer height={15} />
       {/* Movie details - Titel, release year, overview */}
       <View style={styles.descWrapper}>
         <MovieDetails
           movie={movie}
           showOverView={true}
           overViewSize={overViewSize}
+          align={align}
         />
       </View>
       {/* Streaming tjänster */}

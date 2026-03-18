@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import { watchlistService } from "@/features/watchlist/utils/watchlistService";
 import { useFocusEffect } from "expo-router";
 import { WatchlistItem } from "@/types/movietype";
-import MovieCard from "../components/MovieCard";
+import WatchlistMovieCard from "../components/WatchlistMovieCard";
 
 export default function WatchlistScreen() {
   const [items, setItems] = useState<WatchlistItem[]>([]);
@@ -30,7 +30,10 @@ export default function WatchlistScreen() {
             data={items}
             keyExtractor={(item) => item.movie.id.toString()}
             renderItem={({ item }) => (
-              <MovieCard watchlistItem={item} onRefresh={loadWatchlist} />
+              <WatchlistMovieCard
+                watchlistItem={item}
+                onRefresh={loadWatchlist}
+              />
             )}
           />
         )}
