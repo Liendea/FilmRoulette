@@ -19,7 +19,6 @@ export default function MovieVote({ movie }: MovieVoteProps) {
 const styles = StyleSheet.create({
   voteContainer: {
     flexDirection: "row",
-    justifyContent: "flex-start",
     alignItems: "center",
     gap: 10,
   },

@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
-import { View, StyleSheet, Text } from "react-native";
-import { ActivityIndicator } from "react-native";
-import MovieCard from "@/features/roulette/components/MovieCard";
+import { ScrollView, StyleSheet, Text, ActivityIndicator } from "react-native";
+import MovieCard from "@/sharedComponents/MovieCard";
 import { useMovieDetails } from "@/features/MovieDetails/hooks/useMovieDetails";
 
 export default function MovieDetailScreen() {
@@ -15,14 +14,15 @@ export default function MovieDetailScreen() {
   return (
     <>
       {movie && (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <MovieCard
             movie={movie}
             loading={loading}
             showHandle={false}
             watchProvider={watchProviders}
+            overViewSize={300}
           />
-        </View>
+        </ScrollView>
       )}
     </>
   );
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     backgroundColor: "#000000",
-    height: "100%",
+    paddingTop: 100,
+    paddingBottom: 100,
   },
   wrapper: {
     flexDirection: "column",

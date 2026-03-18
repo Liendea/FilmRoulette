@@ -7,12 +7,14 @@ type MovieDetailsProps = {
   direction?: FlexStyle["flexDirection"];
   fontSize?: number;
   showOverView: boolean;
+  overViewSize?: number;
 };
 export default function MovieDetails({
   movie,
   direction = "row",
   fontSize = 16,
   showOverView,
+  overViewSize = 110,
 }: MovieDetailsProps) {
   const releaseYear = movie.release_date
     ? movie.release_date.split("-")[0]
@@ -21,7 +23,7 @@ export default function MovieDetails({
   return (
     <>
       {/* Titel */}
-      <View style={{ flexDirection: direction }}>
+      <View style={[styles.container, { flexDirection: direction }]}>
         <Text style={styles.movieTitle}>{movie.title}</Text>
         {/* Release year */}
         <Text style={styles.subtitle}>{releaseYear}</Text>
@@ -31,11 +33,12 @@ export default function MovieDetails({
         <>
           {/* Overview */}
           <Spacer height={10} />
-          <ScrollView style={styles.overview}>
+          <ScrollView style={[styles.overview, { maxHeight: overViewSize }]}>
             <Text style={[styles.subtitle, { fontSize: fontSize }]}>
               {movie.overview}
             </Text>
           </ScrollView>
+
           <Spacer height={10} />
         </>
       )}
@@ -44,6 +47,9 @@ export default function MovieDetails({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "flex-end",
+  },
   movieTitle: {
     color: "#ffffff",
     fontSize: 20,

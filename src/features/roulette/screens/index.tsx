@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import MovieCard from "@/features/roulette/components/MovieCard";
+import MovieCard from "@/sharedComponents/MovieCard";
 import ShuffleScreen from "../components/ShuffleScreen";
 import { Modal } from "react-native";
 import Toast from "react-native-toast-message";
