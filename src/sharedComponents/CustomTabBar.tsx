@@ -1,8 +1,10 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { FilmReelIcon } from "phosphor-react-native";
-import { ListStarIcon } from "phosphor-react-native";
-import { MagnifyingGlassIcon } from "phosphor-react-native";
+import {
+  FilmReelIcon,
+  ListStarIcon,
+  MagnifyingGlassIcon,
+} from "phosphor-react-native";
 
 export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const currentRoute = state.routes[state.index].name;

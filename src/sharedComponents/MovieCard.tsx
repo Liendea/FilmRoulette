@@ -15,7 +15,7 @@ type MovieCardProps = {
   watchProvider: CountryWatchProviders | null;
   loading: boolean;
   showHandle?: boolean;
-  overViewSize: number;
+  overViewSize?: number;
 };
 
 export default function MovieCard({

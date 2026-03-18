@@ -1,10 +1,15 @@
-import { View, StyleSheet, Pressable, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import MovieList from "../components/MovieList";
 import { useState, useRef } from "react";
 import FilterModal from "../components/FilterModal";
 import { discoverMovies } from "../api/discoverMovies";
 import { SearchFilters } from "@/types/searchfilters";
-import { ActivityIndicator } from "react-native";
 import { Movie } from "@/types/movietype";
 import { LinearGradient } from "expo-linear-gradient";
 import { SlidersHorizontalIcon } from "phosphor-react-native";

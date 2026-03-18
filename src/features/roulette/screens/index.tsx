@@ -1,7 +1,6 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Modal } from "react-native";
 import MovieCard from "@/sharedComponents/MovieCard";
 import ShuffleScreen from "../components/ShuffleScreen";
-import { Modal } from "react-native";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "@/theme/toastConfig";
 import { useRoulette } from "../hooks/useRoulette";

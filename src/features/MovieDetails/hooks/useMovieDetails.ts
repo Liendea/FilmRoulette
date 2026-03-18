@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Movie } from "@/types/movietype";
 import { CountryWatchProviders } from "@/types/watchProvider";
-import { BASE_URL } from "@/api/config";
-import { fetchOptions } from "@/api/config";
+import { BASE_URL, fetchOptions } from "@/api/config";
 import { fetchWatchProviders } from "@/features/roulette/api/fetchWatchProviders";
 
 export function useMovieDetails(id: string | string[] | undefined) {
@@ -30,6 +29,7 @@ export function useMovieDetails(id: string | string[] | undefined) {
         setMovie(movieRes);
         setWatchProviders(providersData);
       } catch (err) {
+        console.error("Fetch error:", err);
         setError(true);
       } finally {
         setLoading(false);

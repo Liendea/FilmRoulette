@@ -13,8 +13,8 @@ export default function RootLayout() {
           name="movie/[id]"
           options={{
             headerTransparent: true,
-            headerTitle: "Filminfo",
-            headerTintColor: "#fff",
+            headerTitle: "Film info",
+            headerTintColor: "#E50914",
             headerStyle: { backgroundColor: "#000" },
             headerBackTitle: "Tillbaka",
           }}

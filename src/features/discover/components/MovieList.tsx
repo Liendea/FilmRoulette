@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { Movie } from "@/types/movietype";
-import { FlatList } from "react-native";
 import MoviePoster from "@/sharedComponents/MoviePoster";
 import Spacer from "@/sharedComponents/Spacer";
 import MovieVote from "@/sharedComponents/MovieVote";
