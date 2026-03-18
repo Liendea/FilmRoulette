@@ -16,31 +16,27 @@ export default function HeroScreen({
         <Text style={styles.emoji}>🍿</Text>
         <Spacer height={20} />
         <Text style={styles.title}>Svårt att välja film?</Text>
+        <Spacer height={10} />
         <Text style={styles.subtitle}>
           Låt slumpen avgöra kvällens underhållning.
         </Text>
+        {/* Shuffle button*/}
+        <Spacer height={50} />
+        <Button
+          onPress={handleShuffle}
+          loading={loading}
+          buttonText={"SLUMPA FRAM EN FILM"}
+        />
       </View>
-      {/* Shuffle button*/}
-      <Spacer height={60} />
-      <Button
-        onPress={handleShuffle}
-        loading={loading}
-        buttonText={"SLUMPA FRAM EN FILM"}
-      />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
   heroSection: {
     justifyContent: "center",
     alignItems: "center",
+    height: "100%",
   },
   emoji: {
     fontSize: 60,

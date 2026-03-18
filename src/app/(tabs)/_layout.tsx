@@ -17,7 +17,10 @@ export default function TabLayoout() {
         },
       }}
     >
-      <Tabs.Screen name="index" options={{ title: "FILM ROULETTE" }} />
+      <Tabs.Screen
+        name="index"
+        options={{ title: "FILM ROULETTE", headerTransparent: true }}
+      />
       <Tabs.Screen
         name="discover"
         options={{
