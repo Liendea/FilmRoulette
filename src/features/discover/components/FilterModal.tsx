@@ -7,7 +7,7 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import { fetchGenres } from "../api/fetchMetadata";
+import { fetchGenres, fetchProviders } from "../api/fetchMetadata";
 import Spacer from "@/sharedComponents/Spacer";
 import { SearchFilters } from "@/types/searchfilters";
 import Button from "@/sharedComponents/Button";
@@ -15,6 +15,9 @@ import Button from "@/sharedComponents/Button";
 import Category from "./Category";
 import MinRating from "./MinRatingDropdown";
 import GenreDropdown from "./GenreDropdown";
+import MonetizationFilter from "./MonetizationFilter";
+import ProviderFilterDropdown from "./ProviderFilterDropdown";
+import { WatchProvider } from "@/types/watchProvider";
 
 type Genre = {
   id: number;
@@ -36,15 +39,28 @@ export default function FilterModal({
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [type, setType] = useState<"movie" | "tv">("movie");
   const [minRating, setMinRating] = useState<number>(0);
+  const [monetizationTypes, setMonetizationTypes] = useState<
+    ("flatrate" | "rent" | "buy")[]
+  >(["flatrate"]);
 
+  const [selectedProviders, setSelectedProviders] = useState<number[]>([]);
+  const [availableProviders, setAvailableProviders] = useState<WatchProvider[]>(
+    [],
+  );
   // Hämta genres när modalen visas
   useEffect(() => {
+    const loadData = async () => {
+      const [genreData, providerData] = await Promise.all([
+        fetchGenres(type),
+        fetchProviders(type),
+      ]);
+
+      setGenres(genreData);
+      setAvailableProviders(providerData);
+    };
+
     if (visible) {
-      const loadGenres = async () => {
-        const data = await fetchGenres(type);
-        setGenres(data);
-      };
-      loadGenres();
+      loadData();
     }
   }, [visible, type]);
 
@@ -54,6 +70,8 @@ export default function FilterModal({
       genres: selectedGenres,
       minRating: minRating,
       watchRegion: "SE",
+      monetizationTypes: monetizationTypes,
+      providers: selectedProviders,
     };
     onSearch(filters);
     onClose();
@@ -78,7 +96,7 @@ export default function FilterModal({
           <Text style={styles.sectionTitle}>Jag letar efter:</Text>
           <Spacer height={10} />
           <Category type={type} setType={setType} />
-          <Spacer height={30} />
+          <Spacer height={20} />
 
           {/* Genre Dropdown */}
           <Text style={styles.sectionTitle}>Genres</Text>
@@ -88,9 +106,28 @@ export default function FilterModal({
             setSelectedGenres={setSelectedGenres}
           />
           <Spacer height={20} />
+          {/* Betyg Dropdown */}
           <Text style={styles.label}>Minsta betyg</Text>
           <Spacer height={10} />
           <MinRating minRating={minRating} setMinRating={setMinRating} />
+          <Spacer height={20} />
+
+          {/* Strema / hyr / köp knappar */}
+          <Text style={styles.sectionTitle}>Jag vill</Text>
+          <Spacer height={10} />
+          <MonetizationFilter
+            monetizationTypes={monetizationTypes}
+            setMonetizationTypes={setMonetizationTypes}
+          />
+          <Spacer height={20} />
+          {/* Tjänst Dropdown */}
+
+          <Text style={styles.sectionTitle}>Välj tjänst</Text>
+          <ProviderFilterDropdown
+            providers={availableProviders}
+            selectedProviders={selectedProviders}
+            setSelectedProviders={setSelectedProviders}
+          />
         </ScrollView>
 
         <Button onPress={handleApplyFilters} buttonText={"Hitta filmer"} />
