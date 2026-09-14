@@ -28,7 +28,7 @@ export default function MovieDetails({
 }: MovieDetailsProps) {
   const releaseYear = movie.release_date
     ? movie.release_date.split("-")[0]
-    : "Okänt år";
+    : "Unknown year";
 
   return (
     <>

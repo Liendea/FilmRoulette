@@ -1,6 +1,6 @@
 🎬 Movie Roulette
 
-En interaktiv mobilapplikation byggd med React Native och Expo som hjälper användare att upptäcka filmer genom ett "roulette"-koncept eller söka på filmer med hjälp av olika filters. Appen använder TMDB API för att hämta realtidsdata om filmer, serier och streamingtjänster i Sverige (snart möjlighet att välja region själv och se reaultat baseart på det land man befinner sig i).
+En interaktiv mobilapplikation byggd med React Native och Expo som hjälper användare att upptäcka filmer och serier genom ett "roulette"-koncept eller sökning med filter. Appen använder TMDB API för att hämta realtidsdata om filmer, serier och streamingtjänster - anpassat efter valfri region.
 
 ## ScreenShots
 
@@ -22,13 +22,21 @@ En interaktiv mobilapplikation byggd med React Native och Expo som hjälper anv�
 
 Funktioner:
 
-    Smart Filtrering: Filtrera filmer baserat på genre, betyg (TMDB) och innehållstyp (Film/Serie).
+    Roulette (Slump): Låt appen slumpa fram en film att titta på ikväll, filtrerat på vad som faktiskt går att streama/hyra/köpa i din valda region.
 
-    Watch Providers: Se direkt var filmen går att streama i Sverige (Netflix, HBO, Disney+, etc.).
+    Sök & Upptäck: Sök filmer eller TV-serier och filtrera på genre, betyg, innehållstyp och streamingtjänst.
 
-    Dynamisk Detaljsida: Djupgående information om varje film med snygga covers och sammanfattningar.
+    Sortering: Sortera sökresultat i Upptäck efter popularitet eller betyg (stigande/fallande).
 
-    Multi-Select Genres: Sökbart gränssnitt för att välja flera kategorier samtidigt.
+    Regionval: Välj vilket land sökningar ska utgå från (flaggikon i appens hörn). Styr både vilka titlar som visas och vilka streamingtjänster som räknas som tillgängliga. Måste väljas innan första slumpningen, men kan bytas när som helst efteråt.
+
+    Watch Providers: Se direkt var en film eller serie går att streama, hyra eller köpa - alltid live-hämtat mot vald region, inte en ögonblicksbild.
+
+    Min lista (Watchlist): Spara filmer/serier för att titta senare. Går att filtrera på vilken region titeln sparades ifrån (praktiskt om man t.ex. reser och byter region), utöver ett "Show all"-läge.
+
+    Dynamisk Detaljsida: Djupgående information om varje film/serie med cover och sammanfattning.
+
+    Multi-Select Genres: Sökbart gränssnitt för att välja flera genrer samtidigt.
 
     Custom Hooks: Effektiv datahantering med specialbyggda hooks för API-anrop.
 
@@ -41,7 +49,9 @@ Funktioner:
 
     Ikoner: Phosphor React Native
 
-    UI Komponenter: react-native-element-dropdown för avancerade filter.
+    UI Komponenter: react-native-element-dropdown för avancerade filter, react-native-safe-area-context för layout kring notch/statusbar
+
+    Lagring: AsyncStorage (watchlist, vald region)
 
     API: The Movie Database (TMDB)
 
@@ -66,6 +76,7 @@ Funktioner:
     Code snippet
 
     EXPO_PUBLIC_TMDB_API_KEY=din_nyckel_här
+    EXPO_PUBLIC_TMDB_ACCESS_TOKEN=din_access_token_här
 
     Starta projektet:
     Bash
@@ -79,11 +90,15 @@ Funktioner:
 
     /api - Konfiguration och fetch-logik för TMDB.
 
-    /features - Specifik affärslogik (t.ex. /roulette för filter och kort).
+    /features - Specifik affärslogik per del av appen:
+        /roulette - Slumpning, resultatvy och "lägg till i lista".
+        /discover - Sök/filtrera på filmer och serier, sortering.
+        /watchlist - Sparade titlar, regionfilter, live watch providers.
+        /country - Regionval (dropdown, tvingande förstagångsval, context).
 
     /sharedComponents - Återanvändbara UI-komponenter som knappar och spacers.
 
-    /types - TypeScript-definitioner för filmer och providers.
+    /types - TypeScript-definitioner för filmer, serier, filter och providers.
 
 Coming soon to Appstore och Andriod store!
 

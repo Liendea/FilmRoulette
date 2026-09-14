@@ -22,27 +22,27 @@ export default function WatchProviderList({
       contentContainerStyle={styles.scrollContent}
     >
       <ProviderAccordion
-        title="Streama"
+        title="Stream"
         data={providers?.flatrate || []}
         isOpen={activeSection === "streaming"}
         onPress={() => toggleSection("streaming")}
-        emptyText="Finns ej att streama just nu"
+        emptyText="Not available to stream right now"
       />
 
       <ProviderAccordion
-        title="Hyr"
+        title="Rent"
         data={providers?.rent || []}
         isOpen={activeSection === "rent"}
         onPress={() => toggleSection("rent")}
-        emptyText="Finns ej att hyra just nu"
+        emptyText="Not available to rent right now"
       />
 
       <ProviderAccordion
-        title="Köp"
+        title="Buy"
         data={providers?.buy || []}
         isOpen={activeSection === "buy"}
         onPress={() => toggleSection("buy")}
-        emptyText="Finns ej att köpa just nu"
+        emptyText="Not available to buy right now"
       />
     </ScrollView>
   );

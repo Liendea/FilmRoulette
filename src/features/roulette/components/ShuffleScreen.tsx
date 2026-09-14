@@ -3,7 +3,7 @@ import Spacer from "@/sharedComponents/Spacer";
 import Button from "@/sharedComponents/Button";
 
 type HeroScreenProps = {
-  handleShuffle: () => void;
+  handleShuffle: (type: "movie" | "tv") => void;
   loading: boolean;
 };
 export default function HeroScreen({
@@ -15,17 +15,23 @@ export default function HeroScreen({
       <View style={styles.heroSection}>
         <Text style={styles.emoji}>🍿</Text>
         <Spacer height={20} />
-        <Text style={styles.title}>Svårt att välja film?</Text>
+        <Text style={styles.title}>Can&apos;t decide what to watch?</Text>
         <Spacer height={10} />
         <Text style={styles.subtitle}>
-          Låt slumpen avgöra kvällens underhållning.
+          Let fate decide tonight&apos;s entertainment.
         </Text>
-        {/* Shuffle button*/}
+        {/* Shuffle buttons - film eller serie */}
         <Spacer height={50} />
         <Button
-          onPress={handleShuffle}
+          onPress={() => handleShuffle("movie")}
           loading={loading}
-          buttonText={"SLUMPA FRAM EN FILM"}
+          buttonText={"SHUFFLE A MOVIE"}
+        />
+        <Spacer height={15} />
+        <Button
+          onPress={() => handleShuffle("tv")}
+          loading={loading}
+          buttonText={"SHUFFLE A TV SHOW"}
         />
       </View>
     </>

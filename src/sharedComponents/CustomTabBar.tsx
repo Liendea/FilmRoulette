@@ -51,7 +51,7 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
               { color: currentRoute === "discover" ? "red" : "white" },
             ]}
           >
-            Upptäck
+            Discover
           </Text>
         </Pressable>
       </View>

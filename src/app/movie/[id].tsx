@@ -4,12 +4,12 @@ import MovieCard from "@/sharedComponents/MovieCard";
 import { useMovieDetails } from "@/features/MovieDetails/hooks/useMovieDetails";
 
 export default function MovieDetailScreen() {
-  const { id } = useLocalSearchParams();
-  const { movie, watchProviders, loading, error } = useMovieDetails(id);
+  const { id, type } = useLocalSearchParams();
+  const { movie, watchProviders, loading, error } = useMovieDetails(id, type);
 
-  if (loading || !movie) return <ActivityIndicator size="large" color="#fff" />;
   if (error)
-    return <Text style={{ color: "white" }}>Kunde inte ladda filmen...</Text>;
+    return <Text style={{ color: "white" }}>Couldn&apos;t load the movie...</Text>;
+  if (loading || !movie) return <ActivityIndicator size="large" color="#fff" />;
 
   return (
     <>

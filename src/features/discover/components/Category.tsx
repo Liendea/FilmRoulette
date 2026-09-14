@@ -15,14 +15,13 @@ export default function Category({ type, setType }: CategoryProps) {
           style={[styles.typeButton, type === "movie" && styles.selectedType]}
           onPress={() => setType("movie")}
         >
-          <Text style={styles.buttonText}>Filmer</Text>
+          <Text style={styles.buttonText}>Movies</Text>
         </Pressable>
         <Pressable
-          disabled={true}
           style={[styles.typeButton, type === "tv" && styles.selectedType]}
           onPress={() => setType("tv")}
         >
-          <Text style={styles.buttonText}>Serier</Text>
+          <Text style={styles.buttonText}>TV Shows</Text>
         </Pressable>
       </View>
     </>

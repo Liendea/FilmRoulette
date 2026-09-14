@@ -16,7 +16,7 @@ export default function MovieList({ movies, onEndReached }: MovieListProps) {
   if (movies.length === 0) {
     return (
       <View>
-        <Text style={styles.subtitle}>Inga filmer hittades</Text>
+        <Text style={styles.subtitle}>No movies found</Text>
       </View>
     );
   }
@@ -33,7 +33,9 @@ export default function MovieList({ movies, onEndReached }: MovieListProps) {
         renderItem={({ item }) => (
           <Pressable
             style={styles.card}
-            onPress={() => router.push(`/movie/${item.id}`)}
+            onPress={() =>
+              router.push(`/movie/${item.id}?type=${item.media_type ?? "movie"}`)
+            }
           >
             <MoviePoster movie={item} posterSize={"small"} />
             <Spacer height={5} />

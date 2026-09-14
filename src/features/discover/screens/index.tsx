@@ -8,11 +8,12 @@ import {
 import MovieList from "../components/MovieList";
 import { useState, useRef } from "react";
 import FilterModal from "../components/FilterModal";
-import { discoverMovies } from "../api/discoverMovies";
+import { discoverTitles} from "../api/discoverTitles";
 import { SearchFilters } from "@/types/searchfilters";
 import { Movie } from "@/types/movietype";
 import { LinearGradient } from "expo-linear-gradient";
 import { SlidersHorizontalIcon } from "phosphor-react-native";
+import RegionButton from "@/features/country/components/RegionButton";
 
 export default function DiscoverScreen() {
   const [visible, setVisible] = useState(true);
@@ -25,7 +26,7 @@ export default function DiscoverScreen() {
     currentFilters.current = filters;
     setLoading(true);
     setPage(1);
-    const results = await discoverMovies(filters, 1);
+    const results = await discoverTitles(filters, 1);
     setMovies(results);
     setLoading(false);
   }
@@ -33,13 +34,15 @@ export default function DiscoverScreen() {
   async function loadMore() {
     if (loading || !currentFilters.current) return;
     const next = page + 1;
-    const results = await discoverMovies(currentFilters.current, next);
+    const results = await discoverTitles(currentFilters.current, next);
     setMovies((prev) => [...prev, ...results]);
     setPage(next);
   }
 
   return (
     <View style={styles.container}>
+      <RegionButton style={styles.regionIcon} />
+
       <Pressable
         style={styles.filterIcon}
         onPress={() => {
@@ -48,7 +51,7 @@ export default function DiscoverScreen() {
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
       >
         <View style={styles.filterWrapper}>
-          <Text style={styles.text}>Filtrera</Text>
+          <Text style={styles.text}>Filter</Text>
           <SlidersHorizontalIcon color="#ffffff" weight="fill" size={32} />
         </View>
       </Pressable>
@@ -86,6 +89,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 63,
     right: 30,
+    zIndex: 100,
+  },
+  regionIcon: {
+    position: "absolute",
+    top: 63,
+    left: 30,
     zIndex: 100,
   },
   bottomShadow: {

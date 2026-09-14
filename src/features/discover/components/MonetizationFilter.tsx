@@ -16,9 +16,9 @@ export default function MonetizationFilter({
   return (
     <View style={styles.row}>
       {[
-        { label: "Streama", value: "flatrate" as const },
-        { label: "Hyra", value: "rent" as const },
-        { label: "Köpa", value: "buy" as const },
+        { label: "Stream", value: "flatrate" as const },
+        { label: "Rent", value: "rent" as const },
+        { label: "Buy", value: "buy" as const },
       ].map((opt) => {
         const isSelected = monetizationTypes.includes(opt.value);
 

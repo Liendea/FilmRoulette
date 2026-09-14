@@ -14,7 +14,7 @@ export default function ShuffleButton({
       onPress={onPress}
       disabled={loading}
     >
-      <Text style={styles.buttonText}>SLUMPA FRAM EN FILM</Text>
+      <Text style={styles.buttonText}>SHUFFLE A MOVIE</Text>
     </Pressable>
   );
 }

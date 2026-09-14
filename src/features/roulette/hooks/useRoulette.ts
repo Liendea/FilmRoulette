@@ -3,21 +3,27 @@ import { Movie } from "@/types/movietype";
 import { CountryWatchProviders } from "@/types/watchProvider";
 import { fetchRandomMovie } from "../api/fetchRandomMovie";
 import { fetchWatchProviders } from "../api/fetchWatchProviders";
+import { useRegion } from "@/features/country/context/RegionContext";
 
 export function useRoulette() {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(false);
   const [watchProvider, setWatchProvider] =
     useState<CountryWatchProviders | null>(null);
+  const { region } = useRegion();
 
-  const handleShuffle = async () => {
+  const handleShuffle = async (type: "movie" | "tv" = "movie") => {
     setLoading(true);
     try {
-      const result = await fetchRandomMovie();
+      const result = await fetchRandomMovie(region.code, type);
       setMovie(result);
 
       if (result?.id) {
-        const providers = await fetchWatchProviders(result.id);
+        const providers = await fetchWatchProviders(
+          result.id,
+          type,
+          region.code,
+        );
         setWatchProvider(providers);
       }
     } catch (error) {

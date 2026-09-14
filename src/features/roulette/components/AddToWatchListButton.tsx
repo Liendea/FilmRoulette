@@ -11,7 +11,7 @@ export default function AddToWatchListButton({
   return (
     <Pressable style={styles.button} onPress={onPress}>
       <PlusCircleIcon color="#fff" weight="fill" size={15} />
-      <Text style={styles.text}>Lägg till i lista</Text>
+      <Text style={styles.text}>Add to list</Text>
     </Pressable>
   );
 }

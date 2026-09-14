@@ -52,10 +52,10 @@ export default function GenreDropdown({
         data={data}
         labelField="label"
         valueField="value"
-        placeholder="Välj genres..."
+        placeholder="Select genres..."
         value={selectedGenres.map((id) => id.toString())}
         search
-        searchPlaceholder="Sök genre..."
+        searchPlaceholder="Search genre..."
         onChange={(item) => {
           setSelectedGenres(item.map((id) => Number(id)));
         }}

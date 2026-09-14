@@ -8,7 +8,7 @@ export default function RemoveButton({ onPress }: RemoveButtonProps) {
   return (
     <Pressable style={styles.button} onPress={onPress}>
       <XCircleIcon color="#fff" weight="fill" size={20} />
-      <Text style={styles.text}>Ta bort</Text>
+      <Text style={styles.text}>Remove</Text>
     </Pressable>
   );
 }

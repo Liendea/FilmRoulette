@@ -59,10 +59,10 @@ export default function ProviderDropdown({
         data={data}
         labelField="label"
         valueField="value"
-        placeholder="Välj tjänster (t.ex. Netflix)..."
+        placeholder="Select services (e.g. Netflix)..."
         value={selectedProviders.map((id) => id.toString())}
         search
-        searchPlaceholder="Sök streamingtjänst..."
+        searchPlaceholder="Search streaming service..."
         onChange={(item) => {
           setSelectedProviders(item.map((id) => Number(id)));
         }}

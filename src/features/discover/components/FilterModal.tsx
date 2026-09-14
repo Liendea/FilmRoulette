@@ -7,9 +7,10 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { fetchGenres, fetchProviders } from "../api/fetchMetadata";
 import Spacer from "@/sharedComponents/Spacer";
-import { SearchFilters } from "@/types/searchfilters";
+import { SearchFilters, SortBy } from "@/types/searchfilters";
 import Button from "@/sharedComponents/Button";
 
 import Category from "./Category";
@@ -17,7 +18,9 @@ import MinRating from "./MinRatingDropdown";
 import GenreDropdown from "./GenreDropdown";
 import MonetizationFilter from "./MonetizationFilter";
 import ProviderFilterDropdown from "./ProviderFilterDropdown";
+import SortByFilter from "./SortByFilter";
 import { WatchProvider } from "@/types/watchProvider";
+import { useRegion } from "@/features/country/context/RegionContext";
 
 type Genre = {
   id: number;
@@ -43,16 +46,20 @@ export default function FilterModal({
     ("flatrate" | "rent" | "buy")[]
   >(["flatrate"]);
 
+  const [sortBy, setSortBy] = useState<SortBy>("popularity.desc");
   const [selectedProviders, setSelectedProviders] = useState<number[]>([]);
   const [availableProviders, setAvailableProviders] = useState<WatchProvider[]>(
     [],
   );
+  const { region } = useRegion();
+  const insets = useSafeAreaInsets();
+
   // Hämta genres när modalen visas
   useEffect(() => {
     const loadData = async () => {
       const [genreData, providerData] = await Promise.all([
         fetchGenres(type),
-        fetchProviders(type),
+        fetchProviders(type, region.code),
       ]);
 
       setGenres(genreData);
@@ -62,16 +69,26 @@ export default function FilterModal({
     if (visible) {
       loadData();
     }
-  }, [visible, type]);
+  }, [visible, type, region.code]);
+
+  // Genre-id:n (och delvis providers) skiljer sig mellan TMDB:s movie- och
+  // tv-namespace - byter man typ utan att nollställa dessa riskerar man att
+  // filtrera på fel/obefintliga genrer i tysthet.
+  const handleTypeChange = (newType: "movie" | "tv") => {
+    setType(newType);
+    setSelectedGenres([]);
+    setSelectedProviders([]);
+  };
 
   const handleApplyFilters = () => {
     const filters: SearchFilters = {
       type,
       genres: selectedGenres,
       minRating: minRating,
-      watchRegion: "SE",
+      watchRegion: region.code,
       monetizationTypes: monetizationTypes,
       providers: selectedProviders,
+      sortBy,
     };
     onSearch(filters);
     onClose();
@@ -81,21 +98,21 @@ export default function FilterModal({
     <Modal
       visible={visible}
       animationType="slide"
-      presentationStyle="pageSheet"
+      presentationStyle="overFullScreen"
       onRequestClose={onClose}
     >
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top + 20 }]}>
         <View style={styles.header}>
           <Pressable onPress={onClose}>
-            <Text style={styles.closeButton}>Avbryt</Text>
+            <Text style={styles.closeButton}>Cancel</Text>
           </Pressable>
         </View>
         <Spacer height={40} />
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* Typ av innehåll */}
-          <Text style={styles.sectionTitle}>Jag letar efter:</Text>
+          <Text style={styles.sectionTitle}>I&apos;m looking for:</Text>
           <Spacer height={10} />
-          <Category type={type} setType={setType} />
+          <Category type={type} setType={handleTypeChange} />
           <Spacer height={20} />
 
           {/* Genre Dropdown */}
@@ -107,13 +124,13 @@ export default function FilterModal({
           />
           <Spacer height={20} />
           {/* Betyg Dropdown */}
-          <Text style={styles.label}>Minsta betyg</Text>
+          <Text style={styles.label}>Minimum rating</Text>
           <Spacer height={10} />
           <MinRating minRating={minRating} setMinRating={setMinRating} />
           <Spacer height={20} />
 
           {/* Strema / hyr / köp knappar */}
-          <Text style={styles.sectionTitle}>Jag vill</Text>
+          <Text style={styles.sectionTitle}>I want to</Text>
           <Spacer height={10} />
           <MonetizationFilter
             monetizationTypes={monetizationTypes}
@@ -122,15 +139,21 @@ export default function FilterModal({
           <Spacer height={20} />
           {/* Tjänst Dropdown */}
 
-          <Text style={styles.sectionTitle}>Välj tjänst</Text>
+          <Text style={styles.sectionTitle}>Choose service</Text>
           <ProviderFilterDropdown
             providers={availableProviders}
             selectedProviders={selectedProviders}
             setSelectedProviders={setSelectedProviders}
           />
+          <Spacer height={20} />
+
+          {/* Sortering */}
+          <Text style={styles.sectionTitle}>Sort by</Text>
+          <Spacer height={10} />
+          <SortByFilter sortBy={sortBy} setSortBy={setSortBy} />
         </ScrollView>
 
-        <Button onPress={handleApplyFilters} buttonText={"Hitta filmer"} />
+        <Button onPress={handleApplyFilters} buttonText={"Find movies"} />
       </View>
     </Modal>
   );

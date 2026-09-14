@@ -2,7 +2,7 @@ import { BASE_URL, fetchOptions } from "@/api/config";
 import { WatchProvider, WatchProviderResponse } from "@/types/watchProvider";
 
 export const fetchGenres = async (type: "movie" | "tv") => {
-  const url = `${BASE_URL}/genre/${type}/list?language=sv-SE`;
+  const url = `${BASE_URL}/genre/${type}/list?language=en-US`;
   const response = await fetch(url, fetchOptions);
   const data = await response.json();
   return data.genres;
@@ -10,8 +10,9 @@ export const fetchGenres = async (type: "movie" | "tv") => {
 
 export const fetchProviders = async (
   type: "movie" | "tv" = "movie",
+  region: string = "SE",
 ): Promise<WatchProvider[]> => {
-  const url = `${BASE_URL}/watch/providers/${type}?language=sv-SE&watch_region=SE`;
+  const url = `${BASE_URL}/watch/providers/${type}?language=en-US&watch_region=${region}`;
 
   try {
     const response = await fetch(url, fetchOptions);

@@ -1,13 +1,16 @@
-import { View, StyleSheet, Pressable, Text } from "react-native";
+import { View, StyleSheet, Pressable, Text, ActivityIndicator } from "react-native";
 import type { WatchlistItem } from "@/types/movietype";
+import type { CountryWatchProviders } from "@/types/watchProvider";
 import RemoveButton from "./RemoveButton";
 import { watchlistService } from "../utils/watchlistService";
 import MovieVote from "@/sharedComponents/MovieVote";
 import Spacer from "@/sharedComponents/Spacer";
 import WatchProviderList from "@/sharedComponents/WatchProviderList";
 import MovieDetails from "@/sharedComponents/MovieDetails";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MoviePoster from "@/sharedComponents/MoviePoster";
+import { fetchWatchProviders } from "@/features/roulette/api/fetchWatchProviders";
+import { useRegion } from "@/features/country/context/RegionContext";
 
 type WatchListMovieCardProps = {
   watchlistItem: WatchlistItem;
@@ -18,12 +21,39 @@ export default function WatchlistMovieCard({
   onRefresh,
 }: WatchListMovieCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { region } = useRegion();
 
   const movie = watchlistItem.movie;
-  const watchProvider = watchlistItem.providers;
 
-  async function handleRemove(id: number) {
-    await watchlistService.removeFromWatchlist(id);
+  // Tillgänglighet kan ändras (och beror på vilken region man tittar från just
+  // nu), så vi hämtar alltid live istället för att lita på snapshotten som
+  // sparades när filmen lades till. Hämtas bara när man faktiskt öppnar
+  // sektionen, inte i förväg för hela listan.
+  const [liveProviders, setLiveProviders] =
+    useState<CountryWatchProviders | null>(null);
+  const [loadingProviders, setLoadingProviders] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let cancelled = false;
+    setLoadingProviders(true);
+
+    fetchWatchProviders(movie.id, movie.media_type ?? "movie", region.code)
+      .then((result) => {
+        if (!cancelled) setLiveProviders(result);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingProviders(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, region.code, movie.id, movie.media_type]);
+
+  async function handleRemove(id: number, mediaType?: string) {
+    await watchlistService.removeFromWatchlist(id, mediaType);
     onRefresh();
   }
 
@@ -49,7 +79,7 @@ export default function WatchlistMovieCard({
             {/* Betyg */}
             <MovieVote movie={movie} />
             {/* Remove knapp */}
-            <RemoveButton onPress={() => handleRemove(movie.id)} />
+            <RemoveButton onPress={() => handleRemove(movie.id, movie.media_type)} />
           </View>
         </View>
         {/* Remove knapp */}
@@ -61,12 +91,16 @@ export default function WatchlistMovieCard({
           onPress={() => setIsOpen(!isOpen)}
           style={styles.accordionHeader}
         >
-          <Text style={styles.accordionTitle}>Var kan jag se den?</Text>
+          <Text style={styles.accordionTitle}>Where can I watch it?</Text>
           <Text style={styles.arrow}>{isOpen ? "▲" : "▼"}</Text>
         </Pressable>
         {isOpen && (
           <View style={styles.accordionContent}>
-            <WatchProviderList providers={watchProvider} />
+            {loadingProviders ? (
+              <ActivityIndicator color="#E50914" />
+            ) : (
+              <WatchProviderList providers={liveProviders} />
+            )}
           </View>
         )}
       </View>
