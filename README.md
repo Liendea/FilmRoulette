@@ -5,16 +5,18 @@ An interactive mobile app built with React Native and Expo that helps you discov
 ## ScreenShots
 
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/3467d4d0-f6f2-4270-875f-b19a277d8d7c" width="24%" />
-    <img src="https://github.com/user-attachments/assets/b2af1f35-86a1-45e5-b1a3-466d7e657923" width="24%" />
-  <img src="https://github.com/user-attachments/assets/ed19328f-e474-4345-939e-94498777caad" width="24%" />
+<img width="24%" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-15 at 12 49 09" src="https://github.com/user-attachments/assets/701505e8-0f49-4fb4-b452-48353c11ef4d" />
+<img width="24%" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-15 at 12 49 44" src="https://github.com/user-attachments/assets/f45bf69d-4cda-4b7c-8e7d-1afcf02d8f80" />
+<img width="24%" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-15 at 12 50 20" src="https://github.com/user-attachments/assets/c75d6c87-1e5f-45d0-9d9f-36ab5ae46b1b" />
+
 <br/>
+<img width="24%" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-15 at 12 50 11" src="https://github.com/user-attachments/assets/3124257e-969f-471a-881a-e7289e127ba4" />
+<img width="24%" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-15 at 12 50 05" src="https://github.com/user-attachments/assets/d6f67f26-6131-4aca-b997-8a57e2253394" />
+<img width="24%" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-15 at 12 49 17" src="https://github.com/user-attachments/assets/3fea7d8d-6f13-48c8-821a-2cd66a12c6cc" />
 
-
-  <img src="https://github.com/user-attachments/assets/4382b4b6-543c-4cee-b472-ec34c7cfec73" width="24%" />
-    <img src="https://github.com/user-attachments/assets/85fa288a-3afa-4ff1-964d-990ef698ff48" width="24%" />
-  <img src="https://github.com/user-attachments/assets/18a25613-6a71-41b8-8a08-e4fc13952b38" width="24%" />
 </div>
+
+
 
 
 
