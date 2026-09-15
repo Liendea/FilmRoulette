@@ -1,6 +1,6 @@
 🎬 Movie Roulette
 
-En interaktiv mobilapplikation byggd med React Native och Expo som hjälper användare att upptäcka filmer och serier genom ett "roulette"-koncept eller sökning med filter. Appen använder TMDB API för att hämta realtidsdata om filmer, serier och streamingtjänster - anpassat efter valfri region.
+An interactive mobile app built with React Native and Expo that helps you discover movies and TV shows through a "roulette" concept, or by searching with filters. The app uses the TMDB API to fetch real-time data on movies, TV shows, and streaming services - tailored to whichever region you choose.
 
 ## ScreenShots
 
@@ -20,90 +20,92 @@ En interaktiv mobilapplikation byggd med React Native och Expo som hjälper anv�
 
 
 
-Funktioner:
+Features:
 
-    Roulette (Slump): Låt appen slumpa fram en film att titta på ikväll, filtrerat på vad som faktiskt går att streama/hyra/köpa i din valda region.
+    Roulette (Shuffle): Choose whether you want a movie or a TV show, then let the app shuffle a random title, filtered to what's actually available to stream/rent/buy in your selected region.
 
-    Sök & Upptäck: Sök filmer eller TV-serier och filtrera på genre, betyg, innehållstyp och streamingtjänst.
+    Search & Discover: Search movies or TV shows and filter by genre, rating, content type, and streaming service.
 
-    Sortering: Sortera sökresultat i Upptäck efter popularitet eller betyg (stigande/fallande).
+    Sorting: Sort search results in Discover by popularity or rating (ascending/descending).
 
-    Regionval: Välj vilket land sökningar ska utgå från (flaggikon i appens hörn). Styr både vilka titlar som visas och vilka streamingtjänster som räknas som tillgängliga. Måste väljas innan första slumpningen, men kan bytas när som helst efteråt.
+    Region selection: Choose which country searches should be based on (flag icon in the corner of the app). Controls both which titles show up and which streaming services count as available. Must be chosen before your first shuffle, but can be changed at any time afterwards.
 
-    Watch Providers: Se direkt var en film eller serie går att streama, hyra eller köpa - alltid live-hämtat mot vald region, inte en ögonblicksbild.
+    Watch Providers: See exactly where a movie or show is available to stream, rent, or buy - always fetched live against your selected region rather than a snapshot from when it was saved.
 
-    Min lista (Watchlist): Spara filmer/serier för att titta senare. Går att filtrera på vilken region titeln sparades ifrån (praktiskt om man t.ex. reser och byter region), utöver ett "Show all"-läge.
+    My List (Watchlist): Save movies/shows to watch later. If you've saved titles from more than one region, a region filter appears automatically so you can see what you saved from each one - alongside a "Show all" view. With only one region saved (the default case), the filter stays hidden to avoid clutter.
 
-    Dynamisk Detaljsida: Djupgående information om varje film/serie med cover och sammanfattning.
+    Dynamic Detail Screen: In-depth information about each movie/show with cover art and summary.
 
-    Multi-Select Genres: Sökbart gränssnitt för att välja flera genrer samtidigt.
+    Multi-Select Genres: Searchable interface for selecting multiple genres at once.
 
-    Custom Hooks: Effektiv datahantering med specialbyggda hooks för API-anrop.
+    Custom Hooks: Efficient data handling with purpose-built hooks for API calls.
+
+    Blurred Tab Bar: The bottom navigation uses a frosted-glass blur effect behind the icons so they stay clearly visible over any content.
 
 
 🛠 TechStack:
 
     Framework: Expo (React Native)
 
-    Navigation: Expo Router (Filbaserad routing)
+    Navigation: Expo Router (file-based routing)
 
-    Ikoner: Phosphor React Native
+    Icons: Phosphor React Native
 
-    UI Komponenter: react-native-element-dropdown för avancerade filter, react-native-safe-area-context för layout kring notch/statusbar
+    UI Components: react-native-element-dropdown for advanced filters, react-native-safe-area-context for layout around the notch/status bar, expo-blur for the frosted tab bar
 
-    Lagring: AsyncStorage (watchlist, vald region)
+    Storage: AsyncStorage (watchlist, selected region)
 
     API: The Movie Database (TMDB)
 
-    Språk: TypeScript
+    Language: TypeScript
     
 
 📦 Installation
 
-    Klona repot:
+    Clone the repo:
     Bash
 
-    git clone https://github.com/ditt-användarnamn/movie-roulette.git
+    git clone https://github.com/your-username/movie-roulette.git
 
-    Installera beroenden:
+    Install dependencies:
     Bash
 
     npm install
-    # eller
+    # or
     npx expo install
 
-    Skapa en .env fil (eller uppdatera din config) med din TMDB API-nyckel:
+    Create a .env file (or update your config) with your TMDB API key:
     Code snippet
 
-    EXPO_PUBLIC_TMDB_API_KEY=din_nyckel_här
-    EXPO_PUBLIC_TMDB_ACCESS_TOKEN=din_access_token_här
+    EXPO_PUBLIC_TMDB_API_KEY=your_key_here
+    EXPO_PUBLIC_TMDB_ACCESS_TOKEN=your_access_token_here
 
-    Starta projektet:
+    Start the project:
     Bash
 
     npx expo start
 
 
-📂 Projektstruktur (i urval)
+📂 Project Structure (selected)
 
-    /app - Innehåller alla routes och layouter (Expo Router).
+    /app - All routes and layouts (Expo Router).
 
-    /api - Konfiguration och fetch-logik för TMDB.
+    /api - Configuration and fetch logic for TMDB.
 
-    /features - Specifik affärslogik per del av appen:
-        /roulette - Slumpning, resultatvy och "lägg till i lista".
-        /discover - Sök/filtrera på filmer och serier, sortering.
-        /watchlist - Sparade titlar, regionfilter, live watch providers.
-        /country - Regionval (dropdown, tvingande förstagångsval, context).
+    /features - Business logic split by app area:
+        /roulette - Shuffle (movie/TV toggle), result view and "add to list".
+        /discover - Search/filter movies and TV shows, sorting.
+        /watchlist - Saved titles, region filter, live watch providers.
+        /country - Region selection (dropdown, forced first-run choice, context).
 
-    /sharedComponents - Återanvändbara UI-komponenter som knappar och spacers.
+    /sharedComponents - Reusable UI components like buttons, spacers, and the tab bar.
 
-    /types - TypeScript-definitioner för filmer, serier, filter och providers.
+    /types - TypeScript definitions for movies, shows, filters, and providers.
 
-Coming soon to Appstore och Andriod store!
-
-
+Coming soon to the App Store and Google Play!
 
 
-    Skapad av: Linda Bengtsson
-    Kontakt: bengtsson-linda@outlook.com
+
+
+    Made by: Linda Bengtsson
+    Contact: bengtsson-linda@outlook.com

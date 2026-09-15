@@ -1,4 +1,5 @@
-import { StyleSheet, View, Modal } from "react-native";
+import { StyleSheet, View, Modal, Pressable } from "react-native";
+import { XIcon } from "phosphor-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MovieCard from "@/sharedComponents/MovieCard";
 import ShuffleScreen from "../components/ShuffleScreen";
@@ -37,6 +38,16 @@ export default function RouletteScreen() {
         onRequestClose={closeModal}
       >
         <View style={[styles.modalBackground, { paddingTop: insets.top }]}>
+          {/* overFullScreen har inget inbyggt sätt att swipa bort modalen på,
+              så en explicit stäng-knapp behövs (pageSheet gjorde detta gratis
+              på iOS, men läckte den vita kanten som fixades tidigare). */}
+          <Pressable
+            style={[styles.closeButton, { top: insets.top + 20 }]}
+            onPress={closeModal}
+            hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+          >
+            <XIcon color="#ffffff" weight="bold" size={24} />
+          </Pressable>
           {movie && (
             <MovieCard
               movie={movie}
@@ -86,5 +97,16 @@ const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
     backgroundColor: "#000",
+  },
+  closeButton: {
+    // top sätts dynamiskt inline (insets.top + 20) - absolut positionerade
+    // element i RN respekterar inte förälderns paddingTop, så utan detta
+    // hamnar knappen under statusfältet/klockan och blir oklickbar.
+    position: "absolute",
+    right: 20,
+    zIndex: 100,
+    backgroundColor: "#5a5959be",
+    borderRadius: 20,
+    padding: 8,
   },
 });

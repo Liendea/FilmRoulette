@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Spacer from "@/sharedComponents/Spacer";
 import Button from "@/sharedComponents/Button";
+import Category from "@/features/discover/components/Category";
 
 type HeroScreenProps = {
   handleShuffle: (type: "movie" | "tv") => void;
@@ -10,6 +12,8 @@ export default function HeroScreen({
   handleShuffle,
   loading,
 }: HeroScreenProps) {
+  const [type, setType] = useState<"movie" | "tv">("movie");
+
   return (
     <>
       <View style={styles.heroSection}>
@@ -20,18 +24,20 @@ export default function HeroScreen({
         <Text style={styles.subtitle}>
           Let fate decide tonight&apos;s entertainment.
         </Text>
-        {/* Shuffle buttons - film eller serie */}
-        <Spacer height={50} />
+        {/* Välj film eller serie att slumpa bland */}
+        <Spacer height={40} />
+        <View style={styles.typeSelector}>
+          <Text style={styles.sectionTitle}>I want to shuffle:</Text>
+          <Spacer height={10} />
+          <View style={styles.typeSelectorRow}>
+            <Category type={type} setType={setType} />
+          </View>
+        </View>
+        <Spacer height={20} />
         <Button
-          onPress={() => handleShuffle("movie")}
+          onPress={() => handleShuffle(type)}
           loading={loading}
-          buttonText={"SHUFFLE A MOVIE"}
-        />
-        <Spacer height={15} />
-        <Button
-          onPress={() => handleShuffle("tv")}
-          loading={loading}
-          buttonText={"SHUFFLE A TV SHOW"}
+          buttonText={type === "tv" ? "SHUFFLE A TV SHOW" : "SHUFFLE A MOVIE"}
         />
       </View>
     </>
@@ -40,6 +46,7 @@ export default function HeroScreen({
 
 const styles = StyleSheet.create({
   heroSection: {
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
@@ -56,6 +63,20 @@ const styles = StyleSheet.create({
   subtitle: {
     color: "#AAAAAA",
     fontSize: 16,
+    textAlign: "center",
+  },
+  typeSelector: {
+    width: "100%",
+    alignItems: "center",
+  },
+  typeSelectorRow: {
+    // Samma bredd som FilterModal ger Category - annars kapas "TV Shows".
+    width: "100%",
+  },
+  sectionTitle: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
     textAlign: "center",
   },
 });

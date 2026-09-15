@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { watchlistService } from "@/features/watchlist/utils/watchlistService";
 import { useFocusEffect } from "expo-router";
@@ -39,10 +39,23 @@ export default function WatchlistScreen() {
     return items.filter((item) => item.addedFromRegion === regionFilter);
   }, [items, regionFilter]);
 
+  // Filtret är bara meningsfullt när man faktiskt sparat från fler än en
+  // region - annars är standardläget (allt från en och samma region) att
+  // dropdownen inte ska synas alls. Nollställ även valet om den valda
+  // regionen inte längre finns kvar bland de sparade titlarna (t.ex. om man
+  // tar bort den sista titeln från en region).
+  const showRegionFilter = availableRegionCodes.length > 1;
+
+  useEffect(() => {
+    if (!showRegionFilter && regionFilter !== ALL_REGIONS_CODE) {
+      setRegionFilter(ALL_REGIONS_CODE);
+    }
+  }, [showRegionFilter, regionFilter]);
+
   return (
     <>
       <View style={styles.container}>
-        {items.length > 0 && (
+        {showRegionFilter && (
           <>
             <RegionFilterDropdown
               availableCodes={availableRegionCodes}

@@ -74,15 +74,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
     borderRadius: 8,
     paddingHorizontal: 12,
+    marginBottom: 4,
   },
   placeholderStyle: { fontSize: 16, color: "#aaa" },
   selectedTextStyle: { fontSize: 14, color: "#fff" },
   itemContainer: { backgroundColor: "#222", borderRadius: 8, borderWidth: 0 },
   selectedStyle: {
-    borderRadius: 12,
+    borderRadius: 8,
     backgroundColor: "#E50914",
-
     borderWidth: 0,
+    marginVertical: 3,
   },
   item: {
     padding: 17,

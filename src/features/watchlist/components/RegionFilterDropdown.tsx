@@ -40,33 +40,44 @@ export default function RegionFilterDropdown({
   );
 
   return (
-    <Dropdown
-      style={styles.dropdown}
-      containerStyle={styles.itemContainer}
-      autoScroll={false}
-      data={options}
-      labelField="name"
-      valueField="code"
-      activeColor="#333"
-      value={selected}
-      onChange={(item) => setSelected(item.code)}
-      renderItem={renderItem}
-      renderLeftIcon={() => (
-        <Text style={[styles.flag, { marginRight: 10 }]}>
-          {selectedOption.flag}
-        </Text>
-      )}
-      selectedTextStyle={styles.selectedTextStyle}
-    />
+    <View>
+      <Text style={styles.label}>Filter by region</Text>
+      <Dropdown
+        style={styles.dropdown}
+        containerStyle={styles.itemContainer}
+        autoScroll={false}
+        data={options}
+        labelField="name"
+        valueField="code"
+        activeColor="#333"
+        value={selected}
+        onChange={(item) => setSelected(item.code)}
+        renderItem={renderItem}
+        renderLeftIcon={() => (
+          <Text style={[styles.flag, { marginRight: 10 }]}>
+            {selectedOption.flag}
+          </Text>
+        )}
+        selectedTextStyle={styles.selectedTextStyle}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  label: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
   dropdown: {
     height: 50,
     backgroundColor: "#333",
     borderRadius: 8,
     paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: "#E50914",
   },
   selectedTextStyle: {
     color: "#fff",

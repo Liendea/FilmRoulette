@@ -1,4 +1,5 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
+import { BlurView } from "expo-blur";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import {
   FilmReelIcon,
@@ -10,8 +11,8 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const currentRoute = state.routes[state.index].name;
   return (
     <View style={styles.container}>
-      {/* Left Pill */}
-      <View style={styles.leftPill}>
+      {/* Left Pill - blurrad bakgrund så ikonerna syns oavsett vad som ligger bakom */}
+      <BlurView intensity={60} tint="dark" style={styles.leftPill}>
         <Pressable
           onPress={() => navigation.navigate("index")}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
@@ -32,9 +33,9 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
             size={32}
           />
         </Pressable>
-      </View>
+      </BlurView>
       {/* Right Pill */}
-      <View style={styles.rightPill}>
+      <BlurView intensity={60} tint="dark" style={styles.rightPill}>
         <Pressable
           style={{ flexDirection: "row", alignItems: "center" }}
           onPress={() => navigation.navigate("discover")}
@@ -54,7 +55,7 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
             Discover
           </Text>
         </Pressable>
-      </View>
+      </BlurView>
     </View>
   );
 }
@@ -76,18 +77,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#5a5959be",
+    backgroundColor: "#5a595966",
     borderRadius: 50,
     paddingHorizontal: 25,
+    overflow: "hidden",
   },
   rightPill: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     height: 60,
-    backgroundColor: "#5a5959be",
+    backgroundColor: "#5a595966",
     borderRadius: 50,
     width: "40%",
+    overflow: "hidden",
   },
   text: {
     marginLeft: 5,

@@ -43,5 +43,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectedType: { backgroundColor: "#E50914" },
-  buttonText: { color: "#fff", fontWeight: "600" },
+  buttonText: { color: "#fff", fontWeight: "600", textAlign: "center" },
 });

@@ -113,7 +113,7 @@ export default function FilterModal({
           <Text style={styles.sectionTitle}>I&apos;m looking for:</Text>
           <Spacer height={10} />
           <Category type={type} setType={handleTypeChange} />
-          <Spacer height={20} />
+          <Spacer height={15} />
 
           {/* Genre Dropdown */}
           <Text style={styles.sectionTitle}>Genres</Text>
@@ -122,12 +122,12 @@ export default function FilterModal({
             selectedGenres={selectedGenres}
             setSelectedGenres={setSelectedGenres}
           />
-          <Spacer height={20} />
+
           {/* Betyg Dropdown */}
           <Text style={styles.label}>Minimum rating</Text>
           <Spacer height={10} />
           <MinRating minRating={minRating} setMinRating={setMinRating} />
-          <Spacer height={20} />
+          <Spacer height={15} />
 
           {/* Strema / hyr / köp knappar */}
           <Text style={styles.sectionTitle}>I want to</Text>
@@ -136,7 +136,7 @@ export default function FilterModal({
             monetizationTypes={monetizationTypes}
             setMonetizationTypes={setMonetizationTypes}
           />
-          <Spacer height={20} />
+          <Spacer height={15} />
           {/* Tjänst Dropdown */}
 
           <Text style={styles.sectionTitle}>Choose service</Text>
@@ -145,15 +145,15 @@ export default function FilterModal({
             selectedProviders={selectedProviders}
             setSelectedProviders={setSelectedProviders}
           />
-          <Spacer height={20} />
 
           {/* Sortering */}
           <Text style={styles.sectionTitle}>Sort by</Text>
           <Spacer height={10} />
           <SortByFilter sortBy={sortBy} setSortBy={setSortBy} />
+          <Spacer height={220} />
         </ScrollView>
 
-        <Button onPress={handleApplyFilters} buttonText={"Find movies"} />
+        <Button onPress={handleApplyFilters} buttonText={"Search"} />
       </View>
     </Modal>
   );
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
   },
   row: {
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   chipContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
+    gap: 10,
   },
 
   label: {
