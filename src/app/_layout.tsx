@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "@/theme/toastConfig";
 import { RegionProvider } from "@/features/country/context/RegionContext";
+import UpdatePrompt from "@/features/update/components/UpdatePrompt";
 
 export default function RootLayout() {
   return (
@@ -21,6 +22,9 @@ export default function RootLayout() {
           }}
         />
       </Stack>
+
+      <Toast config={toastConfig} />
+      <UpdatePrompt />
       <Toast config={toastConfig} />
     </RegionProvider>
   );
