@@ -47,6 +47,11 @@ export default function HeroScreen({
 const styles = StyleSheet.create({
   heroSection: {
     width: "100%",
+    // Utan detta sträcker sig knappar/rader (som är width: "100%" av denna)
+    // ut över hela bredden på en iPad. maxWidth begränsar dem till en läsbar
+    // bredd och alignSelf centrerar hero-sektionen själv på bred skärm.
+    maxWidth: 480,
+    alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
     height: "100%",

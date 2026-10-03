@@ -14,31 +14,51 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
       {/* Left Pill - blurrad bakgrund så ikonerna syns oavsett vad som ligger bakom */}
       <BlurView intensity={60} tint="dark" style={styles.leftPill}>
         <Pressable
+          style={styles.tabItem}
           onPress={() => navigation.navigate("index")}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <FilmReelIcon
             color={currentRoute === "index" ? "red" : "#ffffff"}
             weight="fill"
-            size={32}
+            size={26}
           />
+          <Text
+            style={[
+              styles.tabLabel,
+              { color: currentRoute === "index" ? "red" : "white" },
+            ]}
+          >
+            Shuffle
+          </Text>
         </Pressable>
         <Pressable
+          style={styles.tabItem}
           onPress={() => navigation.navigate("watchlist")}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <ListStarIcon
             color={currentRoute === "watchlist" ? "red" : "#ffffff"}
             weight="fill"
-            size={32}
+            size={26}
           />
+          <Text
+            style={[
+              styles.tabLabel,
+              { color: currentRoute === "watchlist" ? "red" : "white" },
+            ]}
+          >
+            Watchlist
+          </Text>
         </Pressable>
       </BlurView>
       {/* Right Pill */}
       <BlurView intensity={60} tint="dark" style={styles.rightPill}>
         <Pressable
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => navigation.navigate("discover")}
+          onPress={() =>
+            navigation.navigate("discover", { openFilter: Date.now() })
+          }
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <MagnifyingGlassIcon
@@ -73,14 +93,28 @@ const styles = StyleSheet.create({
   },
   leftPill: {
     width: "45%",
-    height: 60,
+    // Utan detta blir pillen (och därmed avståndet mellan ikonerna) väldigt
+    // bred på iPad, eftersom 45% räknas mot en mycket bredare skärm.
+    // maxWidth påverkar inte telefoner - 45% av en telefonskärm ligger redan
+    // under detta värde.
+    maxWidth: 200,
+    height: 65,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#5a595966",
-    borderRadius: 50,
-    paddingHorizontal: 25,
+    borderRadius: 32,
+    paddingHorizontal: 20,
     overflow: "hidden",
+  },
+  tabItem: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 2,
+  },
+  tabLabel: {
+    fontSize: 10,
+    fontWeight: "500",
   },
   rightPill: {
     flexDirection: "row",

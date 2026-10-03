@@ -6,14 +6,15 @@ import {
   ActivityIndicator,
 } from "react-native";
 import MovieList from "../components/MovieList";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import FilterModal from "../components/FilterModal";
-import { discoverTitles} from "../api/discoverTitles";
+import { discoverTitles } from "../api/discoverTitles";
 import { SearchFilters } from "@/types/searchfilters";
 import { Movie } from "@/types/movietype";
 import { LinearGradient } from "expo-linear-gradient";
 import { SlidersHorizontalIcon } from "phosphor-react-native";
 import RegionButton from "@/features/country/components/RegionButton";
+import { useLocalSearchParams } from "expo-router";
 
 export default function DiscoverScreen() {
   const [visible, setVisible] = useState(true);
@@ -21,6 +22,14 @@ export default function DiscoverScreen() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const currentFilters = useRef<SearchFilters | null>(null);
+
+  const { openFilter } = useLocalSearchParams<{ openFilter?: string }>();
+
+  useEffect(() => {
+    if (openFilter) {
+      setVisible(true);
+    }
+  }, [openFilter]);
 
   async function handleSearch(filters: SearchFilters) {
     currentFilters.current = filters;

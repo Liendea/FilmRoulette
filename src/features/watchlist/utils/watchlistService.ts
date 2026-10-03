@@ -40,6 +40,16 @@ export const watchlistService = {
     }
   },
 
+  // Kolla om en film/serie redan ligger i listan
+  isInWatchlist: async (movieId: number, mediaType?: string) => {
+    const currentList = await watchlistService.getWatchlist();
+    return currentList.some(
+      (item) =>
+        itemKey(item.movie.id, item.movie.media_type) ===
+        itemKey(movieId, mediaType),
+    );
+  },
+
   // Lägg till en film/serie (om den inte redan finns)
   addToWatchlist: async (item: WatchlistItem) => {
     try {

@@ -1,4 +1,11 @@
-import { View, StyleSheet, Pressable, Text, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Text,
+  ActivityIndicator,
+  useWindowDimensions,
+} from "react-native";
 import type { WatchlistItem } from "@/types/movietype";
 import type { CountryWatchProviders } from "@/types/watchProvider";
 import RemoveButton from "./RemoveButton";
@@ -22,6 +29,10 @@ export default function WatchlistMovieCard({
 }: WatchListMovieCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { region } = useRegion();
+  const { width } = useWindowDimensions();
+  // Samma iPad-gräns som övriga skärmar. På mobil ryms mindre text bredvid
+  // den lilla postern, på iPad finns det gott om plats.
+  const isTablet = width >= 768;
 
   const movie = watchlistItem.movie;
 
@@ -63,7 +74,7 @@ export default function WatchlistMovieCard({
         {/* Movie poster */}
         <MoviePoster movie={movie} posterSize={"small"} />
         {/* Titel och realese år */}
-        <View style={styles.movieDesc}>
+        <View style={[styles.movieDesc, { width: isTablet ? "80%" : "60%" }]}>
           <MovieDetails
             movie={movie}
             direction={"column"}
@@ -79,7 +90,9 @@ export default function WatchlistMovieCard({
             {/* Betyg */}
             <MovieVote movie={movie} />
             {/* Remove knapp */}
-            <RemoveButton onPress={() => handleRemove(movie.id, movie.media_type)} />
+            <RemoveButton
+              onPress={() => handleRemove(movie.id, movie.media_type)}
+            />
           </View>
         </View>
         {/* Remove knapp */}
@@ -118,7 +131,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   movieDesc: {
-    width: "55%",
     justifyContent: "space-between",
   },
   accordionHeader: {

@@ -55,35 +55,37 @@ export default function WatchlistScreen() {
   return (
     <>
       <View style={styles.container}>
-        {showRegionFilter && (
-          <>
-            <RegionFilterDropdown
-              availableCodes={availableRegionCodes}
-              selected={regionFilter}
-              setSelected={setRegionFilter}
-            />
-            <Spacer height={15} />
-          </>
-        )}
-
-        {filteredItems.length === 0 ? (
-          <Text style={styles.emptyText}>
-            {items.length === 0
-              ? "Your list is empty"
-              : "No movies/TV shows saved from that region"}
-          </Text>
-        ) : (
-          <FlatList
-            data={filteredItems}
-            keyExtractor={(item) => item.movie.id.toString()}
-            renderItem={({ item }) => (
-              <WatchlistMovieCard
-                watchlistItem={item}
-                onRefresh={loadWatchlist}
+        <View style={styles.widthLimiter}>
+          {showRegionFilter && (
+            <>
+              <RegionFilterDropdown
+                availableCodes={availableRegionCodes}
+                selected={regionFilter}
+                setSelected={setRegionFilter}
               />
-            )}
-          />
-        )}
+              <Spacer height={15} />
+            </>
+          )}
+
+          {filteredItems.length === 0 ? (
+            <Text style={styles.emptyText}>
+              {items.length === 0
+                ? "Your list is empty"
+                : "No movies/TV shows saved from that region"}
+            </Text>
+          ) : (
+            <FlatList
+              data={filteredItems}
+              keyExtractor={(item) => item.movie.id.toString()}
+              renderItem={({ item }) => (
+                <WatchlistMovieCard
+                  watchlistItem={item}
+                  onRefresh={loadWatchlist}
+                />
+              )}
+            />
+          )}
+        </View>
       </View>
     </>
   );
@@ -96,6 +98,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     paddingBottom: 100,
     paddingTop: 10,
+    alignItems: "center",
+  },
+  // Samma tak som övriga skärmar (movie/[id], Shuffle) - utan detta
+  // sträcker sig listan och korten ut över hela iPad-bredden.
+  widthLimiter: {
+    flex: 1,
+    width: "100%",
+    maxWidth: 780,
   },
   title: {
     fontSize: 24,

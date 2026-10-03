@@ -9,6 +9,7 @@ import { useRoulette } from "../hooks/useRoulette";
 import CountryScreen from "@/features/country/screens";
 import { useRegion } from "@/features/country/context/RegionContext";
 import RegionButton from "@/features/country/components/RegionButton";
+import InfoButton from "@/sharedComponents/InfoButton";
 
 export default function RouletteScreen() {
   const { movie, loading, watchProvider, handleShuffle, closeModal } =
@@ -19,6 +20,7 @@ export default function RouletteScreen() {
   return (
     <View style={styles.container}>
       <RegionButton style={styles.regionIcon} />
+      <InfoButton style={styles.infoIcon} />
 
       {/* Först visas Shuffle Screen */}
       <ShuffleScreen handleShuffle={handleShuffle} loading={loading} />
@@ -74,6 +76,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 63,
     left: 30,
+    zIndex: 100,
+  },
+  infoIcon: {
+    position: "absolute",
+    top: 63,
+    right: 30,
     zIndex: 100,
   },
   heroSection: {

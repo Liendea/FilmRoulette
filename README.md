@@ -1,4 +1,4 @@
-🎬 Movie Roulette
+🎬 Film Roulette
 
 An interactive mobile app built with React Native and Expo that helps you discover movies and TV shows through a "roulette" concept, or by searching with filters. The app uses the TMDB API to fetch real-time data on movies, TV shows, and streaming services - tailored to whichever region you choose.
 

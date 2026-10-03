@@ -32,7 +32,7 @@ export default function MovieCard({
   overViewSize,
   align,
 }: MovieCardProps) {
-  const { addToWatchlist } = useWatchlistActions();
+  const { addToWatchlist, isAdded, isSaving } = useWatchlistActions(movie);
 
   return (
     <>
@@ -51,8 +51,10 @@ export default function MovieCard({
       <View style={styles.voteWrapper}>
         <MovieVote movie={movie} />
         <AddToWatchListButton
+          isAdded={isAdded}
+          disabled={isSaving}
           onPress={() => {
-            addToWatchlist(movie, watchProvider);
+            addToWatchlist(watchProvider);
           }}
         />
       </View>

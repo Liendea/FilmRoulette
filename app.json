@@ -1,35 +1,56 @@
 {
   "expo": {
-    "name": "FilmRoulette",
+    "name": "Film Roulette",
     "slug": "FilmRoulette",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./src/assets/popcorn.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./src/assets/popcorn.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#00000"
-    },
+    "userInterfaceStyle": "dark",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.liendea.FilmRoulette",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/popcorn.png",
         "backgroundColor": "#000000"
       },
-      "edgeToEdgeEnabled": true
+      "package": "com.liendea.FilmRoulette"
     },
     "web": {
       "favicon": "./src/assets/popcorn.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./src/assets/splash.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#000000",
+          "enableFullScreenImage_legacy": true
+        }
+      ],
+      "expo-status-bar",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "enableSceneSupport": true
+          }
+        }
+      ]
+    ],
     "scheme": "filmroulette",
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "797ce5a0-6965-4ef9-8965-d619eeaed9c3"
       }
     }
   }

@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  FlatList,
+  useWindowDimensions,
+} from "react-native";
 import { Movie } from "@/types/movietype";
 import MoviePoster from "@/sharedComponents/MoviePoster";
 import Spacer from "@/sharedComponents/Spacer";
@@ -10,8 +17,14 @@ type MovieListProps = {
   onEndReached: () => void;
 };
 
+// Bredd-gräns för att räkna som iPad/tablet-layout. iPhone (även Pro Max)
+// hamnar under detta i porträtt, minsta iPad över.
+const TABLET_BREAKPOINT = 700;
+
 export default function MovieList({ movies, onEndReached }: MovieListProps) {
   const router = useRouter();
+  const { width } = useWindowDimensions();
+  const numColumns = width >= TABLET_BREAKPOINT ? 3 : 2;
 
   if (movies.length === 0) {
     return (
@@ -24,15 +37,18 @@ export default function MovieList({ movies, onEndReached }: MovieListProps) {
   return (
     <View style={styles.container}>
       <FlatList
+        // FlatList måste remountas när numColumns ändras - RN kräver det
+        // eftersom kolumn-layouten sätts upp internt vid mount.
+        key={numColumns}
         data={movies}
         keyExtractor={(item, index) => `${item.id}-${index}`}
-        numColumns={2}
+        numColumns={numColumns}
         columnWrapperStyle={styles.row}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
         renderItem={({ item }) => (
           <Pressable
-            style={styles.card}
+            style={[styles.card, { width: `${100 / numColumns}%` }]}
             onPress={() =>
               router.push(`/movie/${item.id}?type=${item.media_type ?? "movie"}`)
             }
@@ -60,7 +76,7 @@ const styles = StyleSheet.create({
     paddingTop: 120,
   },
   card: {
-    width: "50%",
+    // Bredden sätts inline per numColumns (se renderItem).
     justifyContent: "flex-start",
     alignItems: "center",
   },
