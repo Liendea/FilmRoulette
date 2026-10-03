@@ -3,21 +3,17 @@ import {
   CountryWatchProviders,
 } from "@/types/watchProvider";
 
+import { BASE_URL, fetchOptions } from "@/api/config";
+
 export async function fetchWatchProviders(
   movieId: number,
   type: "movie" | "tv" = "movie",
   region: string = "SE",
 ): Promise<CountryWatchProviders | null> {
   try {
-    const url = `https://api.themoviedb.org/3/${type}/${movieId}/watch/providers`;
+    const url = `${BASE_URL}/${type}/${movieId}/watch/providers`;
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.EXPO_PUBLIC_TMDB_ACCESS_TOKEN}`,
-      },
-    });
+    const response = await fetch(url, fetchOptions);
 
     const data: WatchProviderResponse = await response.json();
 

@@ -1,6 +1,6 @@
 import { Movie } from "@/types/movietype";
 
-const ACCESS_TOKEN = process.env.EXPO_PUBLIC_TMDB_ACCESS_TOKEN;
+import { BASE_URL, fetchOptions } from "@/api/config";
 
 type TMDBResult = {
   title?: string;
@@ -17,15 +17,10 @@ export const fetchRandomMovie = async (
 ): Promise<Movie> => {
   const randomPage = Math.floor(Math.random() * 100) + 1;
   const monetization = "flatrate|buy|rent";
-  const url = `https://api.themoviedb.org/3/discover/${type}?language=en-US&region=${region}&watch_region=${region}&with_watch_monetization_types=${monetization}&sort_by=popularity.desc&include_adult=false&page=${randomPage}`;
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-  });
+  const url = `${BASE_URL}/discover/${type}?language=en-US&region=${region}&watch_region=${region}&with_watch_monetization_types=${monetization}&sort_by=popularity.desc&include_adult=false&page=${randomPage}`;
+
+  const response = await fetch(url, fetchOptions);
 
   if (!response.ok) throw new Error("Kunde inte hämta film");
 
