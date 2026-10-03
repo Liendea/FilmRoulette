@@ -2,7 +2,7 @@
   "expo": {
     "name": "Film Roulette",
     "slug": "FilmRoulette",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./src/assets/popcorn.png",
     "userInterfaceStyle": "dark",

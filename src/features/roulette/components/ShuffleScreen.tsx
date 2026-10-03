@@ -1,18 +1,39 @@
-import { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Dispatch, SetStateAction, useState } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { SlidersHorizontalIcon } from "phosphor-react-native";
 import Spacer from "@/sharedComponents/Spacer";
 import Button from "@/sharedComponents/Button";
 import Category from "@/features/discover/components/Category";
+import ShuffleFilterModal from "./ShuffleFilterModal";
+import { useAvailableProviders } from "../hooks/useAvailableProviders";
+import { MonetizationTypes } from "../hooks/useRoulette";
 
 type HeroScreenProps = {
   handleShuffle: (type: "movie" | "tv") => void;
   loading: boolean;
+  monetizationTypes: MonetizationTypes;
+  setMonetizationTypes: Dispatch<SetStateAction<MonetizationTypes>>;
+  selectedProviders: number[];
+  setSelectedProviders: (ids: number[]) => void;
+  hasActiveFilters: boolean;
+  resetFilters: () => void;
+  noResults: boolean;
 };
 export default function HeroScreen({
   handleShuffle,
   loading,
+  monetizationTypes,
+  setMonetizationTypes,
+  selectedProviders,
+  setSelectedProviders,
+  hasActiveFilters,
+  resetFilters,
+  noResults,
 }: HeroScreenProps) {
   const [type, setType] = useState<"movie" | "tv">("movie");
+  const [filterVisible, setFilterVisible] = useState(false);
+  // Tjänsterna att välja bland beror på både region och film/serie.
+  const providers = useAvailableProviders(type);
 
   return (
     <>
@@ -39,7 +60,49 @@ export default function HeroScreen({
           loading={loading}
           buttonText={type === "tv" ? "SHUFFLE A TV SHOW" : "SHUFFLE A MOVIE"}
         />
+        <Spacer height={20} />
+        {/* Öppnar shuffle-filtret. Röd när ett filter är aktivt, så att det
+            syns varför urvalet är begränsat. */}
+        <Pressable
+          style={styles.filterButton}
+          onPress={() => setFilterVisible(true)}
+          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+        >
+          <SlidersHorizontalIcon
+            color={hasActiveFilters ? "#E50914" : "#AAAAAA"}
+            weight="bold"
+            size={18}
+          />
+          <Text
+            style={[
+              styles.filterButtonText,
+              hasActiveFilters && styles.filterButtonTextActive,
+            ]}
+          >
+            {hasActiveFilters ? "Edit shuffle filter" : "Add shuffle filter"}
+          </Text>
+        </Pressable>
+        {noResults && (
+          <>
+            <Spacer height={12} />
+            <Text style={styles.noResults}>
+              No titles match your filter. Try changing it.
+            </Text>
+          </>
+        )}
       </View>
+
+      <ShuffleFilterModal
+        visible={filterVisible}
+        onClose={() => setFilterVisible(false)}
+        providers={providers}
+        monetizationTypes={monetizationTypes}
+        setMonetizationTypes={setMonetizationTypes}
+        selectedProviders={selectedProviders}
+        setSelectedProviders={setSelectedProviders}
+        hasActiveFilters={hasActiveFilters}
+        resetFilters={resetFilters}
+      />
     </>
   );
 }
@@ -82,6 +145,24 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
+    textAlign: "center",
+  },
+  filterButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  filterButtonText: {
+    color: "#AAAAAA",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  filterButtonTextActive: {
+    color: "#E50914",
+  },
+  noResults: {
+    color: "#AAAAAA",
+    fontSize: 14,
     textAlign: "center",
   },
 });

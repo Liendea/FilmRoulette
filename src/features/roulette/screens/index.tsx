@@ -12,8 +12,20 @@ import RegionButton from "@/features/country/components/RegionButton";
 import InfoButton from "@/sharedComponents/InfoButton";
 
 export default function RouletteScreen() {
-  const { movie, loading, watchProvider, handleShuffle, closeModal } =
-    useRoulette();
+  const {
+    movie,
+    loading,
+    watchProvider,
+    handleShuffle,
+    closeModal,
+    monetizationTypes,
+    setMonetizationTypes,
+    selectedProviders,
+    setSelectedProviders,
+    hasActiveFilters,
+    resetFilters,
+    noResults,
+  } = useRoulette();
   const { regionConfirmed, loading: regionLoading } = useRegion();
   const insets = useSafeAreaInsets();
 
@@ -23,7 +35,17 @@ export default function RouletteScreen() {
       <InfoButton style={styles.infoIcon} />
 
       {/* Först visas Shuffle Screen */}
-      <ShuffleScreen handleShuffle={handleShuffle} loading={loading} />
+      <ShuffleScreen
+        handleShuffle={handleShuffle}
+        loading={loading}
+        monetizationTypes={monetizationTypes}
+        setMonetizationTypes={setMonetizationTypes}
+        selectedProviders={selectedProviders}
+        setSelectedProviders={setSelectedProviders}
+        hasActiveFilters={hasActiveFilters}
+        resetFilters={resetFilters}
+        noResults={noResults}
+      />
 
       {/* Tvingande region-val - måste bekräftas innan man kan slumpa första gången */}
       <CountryScreen
