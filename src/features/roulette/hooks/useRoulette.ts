@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import Toast from "react-native-toast-message";
 import { Movie } from "@/types/movietype";
 import { SearchFilters } from "@/types/searchfilters";
 import { CountryWatchProviders } from "@/types/watchProvider";
@@ -25,6 +26,9 @@ export function useRoulette() {
   const [selectedProviders, setSelectedProvidersState] = useState<number[]>([]);
   // true när senaste slumpningen inte hittade någon titel som matchar filtren.
   const [noResults, setNoResults] = useState(false);
+  // Film eller serie vid senaste slumpningen - "shuffle again" i
+  // resultatfönstret slumpar samma typ igen.
+  const [lastType, setLastType] = useState<"movie" | "tv">("movie");
   const { region } = useRegion();
 
   // Tjänsterna skiljer sig mellan länder. Byter man region nollställs valet,
@@ -62,21 +66,38 @@ export function useRoulette() {
   const handleShuffle = async (type: "movie" | "tv" = "movie") => {
     setLoading(true);
     setNoResults(false);
+    setLastType(type);
     try {
-      const result = await fetchRandomMovie({
-        type,
-        watchRegion: region.code,
-        monetizationTypes: monetizationTypes.length
-          ? monetizationTypes
-          : ALL_MONETIZATION,
-        providers: selectedProviders,
-      });
+      const result = await fetchRandomMovie(
+        {
+          type,
+          watchRegion: region.code,
+          monetizationTypes: monetizationTypes.length
+            ? monetizationTypes
+            : ALL_MONETIZATION,
+          providers: selectedProviders,
+        },
+        // Visas redan en titel (shuffle again) ska vi inte få samma igen.
+        movie?.id,
+      );
 
       if (!result) {
-        setNoResults(true);
+        if (movie) {
+          // Resultatfönstret är öppet: behåll titeln som visas och säg till
+          // där, istället för meddelandet på shuffle-skärmen bakom.
+          Toast.show({
+            type: "info",
+            text1: "No other titles match your filter",
+          });
+        } else {
+          setNoResults(true);
+        }
         return;
       }
 
+      // Nollställ tjänsterna så att den nya titeln inte visas med den
+      // förra titelns tjänster medan de nya hämtas.
+      setWatchProvider(null);
       setMovie(result);
 
       if (result.id) {
@@ -93,6 +114,9 @@ export function useRoulette() {
       setLoading(false);
     }
   };
+
+  // Slumpar en ny titel av samma typ och med samma filter som senast.
+  const shuffleAgain = () => handleShuffle(lastType);
 
   const closeModal = () => {
     setMovie(null);
@@ -111,6 +135,7 @@ export function useRoulette() {
     resetFilters,
     noResults,
     handleShuffle,
+    shuffleAgain,
     closeModal,
   };
 }

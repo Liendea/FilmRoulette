@@ -10,6 +10,7 @@ import CountryScreen from "@/features/country/screens";
 import { useRegion } from "@/features/country/context/RegionContext";
 import RegionButton from "@/features/country/components/RegionButton";
 import InfoButton from "@/sharedComponents/InfoButton";
+import Button from "@/sharedComponents/Button";
 
 export default function RouletteScreen() {
   const {
@@ -17,6 +18,7 @@ export default function RouletteScreen() {
     loading,
     watchProvider,
     handleShuffle,
+    shuffleAgain,
     closeModal,
     monetizationTypes,
     setMonetizationTypes,
@@ -73,11 +75,32 @@ export default function RouletteScreen() {
             <XIcon color="#ffffff" weight="bold" size={24} />
           </Pressable>
           {movie && (
-            <MovieCard
-              movie={movie}
-              watchProvider={watchProvider}
-              loading={loading}
-            />
+            <>
+              {/* key: ny titel = nytt kort, så att öppna sektioner och
+                  scrolläge inte följer med från förra titeln.
+                  loading={false}: under "shuffle again" ligger förra titeln
+                  kvar tills den nya är hämtad - annars byts postern mot en
+                  liten spinner och hela layouten hoppar. */}
+              <MovieCard
+                key={`${movie.media_type ?? "movie"}-${movie.id}`}
+                movie={movie}
+                watchProvider={watchProvider}
+                loading={false}
+              />
+              {/* Slumpa igen utan att stänga fönstret - samma typ och filter */}
+              <View
+                style={[
+                  styles.shuffleAgain,
+                  { paddingBottom: insets.bottom + 16 },
+                ]}
+              >
+                <Button
+                  onPress={shuffleAgain}
+                  loading={loading}
+                  buttonText={loading ? "SHUFFLING..." : "SHUFFLE AGAIN"}
+                />
+              </View>
+            </>
           )}
         </View>
         <Toast config={toastConfig} />
@@ -127,6 +150,14 @@ const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
     backgroundColor: "#000",
+  },
+  shuffleAgain: {
+    width: "100%",
+    // Samma tak som övriga knappar så den inte blir skärmbred på iPad.
+    maxWidth: 480,
+    alignSelf: "center",
+    paddingHorizontal: 16,
+    paddingTop: 12,
   },
   closeButton: {
     // top sätts dynamiskt inline (insets.top + 20) - absolut positionerade

@@ -24,9 +24,8 @@ export default function MoviePoster({
 }: MoviePosterBigProps) {
   const [imageLoading, setImageLoading] = useState(false);
   const { width, height } = useWindowDimensions();
-  // TMDB-postrar är 2:3. Utgå från 45 % av skärmhöjden och räkna fram
-  // bredden, men krymp båda om det inte får plats på bredden.
-  const maxPosterHeight = height * 0.45;
+
+  const maxPosterHeight = height * 0.35;
   const bigPosterWidth = Math.min(
     maxPosterHeight * POSTER_ASPECT_RATIO,
     width,

@@ -30,8 +30,11 @@ async function fetchPage(url: string): Promise<DiscoverPage> {
 
 // Returnerar en slumpad titel som matchar filtren, eller null om inget
 // matchar. Kastar bara vid nätverks-/API-fel.
+// excludeId: titeln som visas just nu - "shuffle again" ska aldrig ge
+// samma titel en gång till.
 export const fetchRandomMovie = async (
   filters: SearchFilters,
+  excludeId?: number,
 ): Promise<Movie | null> => {
   const type = filters.type ?? "movie";
   // Sorteringen styr inte vilken titel som väljs, bara vilka som hamnar bland
@@ -59,13 +62,22 @@ export const fetchRandomMovie = async (
 
   if (totalPages === 0) return null;
 
+  // Sidor vi redan provat - ingen idé att hämta samma sida två gånger.
+  const triedPages = new Set<number>();
+
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     const page = Math.floor(Math.random() * totalPages) + 1;
+    if (triedPages.has(page)) continue;
+    triedPages.add(page);
+
     const { results } =
       page === 1 && firstPage ? firstPage : await fetchPage(urlFor(page));
 
     const candidates = results.filter(
-      (item) => item.overview && item.overview.trim() !== "",
+      (item) =>
+        item.overview &&
+        item.overview.trim() !== "" &&
+        item.id !== excludeId,
     );
 
     if (candidates.length > 0) {
